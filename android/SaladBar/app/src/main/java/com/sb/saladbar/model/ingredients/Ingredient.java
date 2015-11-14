@@ -6,7 +6,7 @@ package com.sb.saladbar.model.ingredients;
 public interface Ingredient {
 
     String getName();
-    double getPrice();
+    double getCost();
     int getCalories();
 
 }
