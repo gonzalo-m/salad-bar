@@ -9,7 +9,7 @@ public enum Premium implements Ingredient {
     BACON("bacon", .25, 170),
     BAKED_FALAFEL("baked falafel", .25, 180),
     CITRUS_SHRIMP("citrus shrimp",.25, 140),
-    FEAT_CHEESE("feta cheese", .25, 80),
+    FETA_CHEESE("feta cheese", .25, 80),
     HARD_BOILED_EGG("hard boiled egg", .25, 80),
     HOUSEMADE_HUMMUS("housemade calories", .25, 90),
     GOAT_CHEESE("goat cheese", .25, 80),

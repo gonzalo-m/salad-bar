@@ -14,7 +14,7 @@ public enum Dressing implements Ingredient {
     CUCUMBER_TAHINI_YOGURT_DRESSING("cucumber tahini yogurt dressing", .25, 110),
     EXTRA_VIRGIN_OLIVE_OIL("extra virgin olive oil", .25, 130),
     FRESH_LEMON_SQUEEZE("fresh lemon squeeze", .25, 0),
-    FRESH_Lime_SQUEEZE("fresh lime squeeze", .25, 0),
+    FRESH_LIME_SQUEEZE("fresh lime squeeze", .25, 0),
     LIME_CILANTRO_JALAPENO_VINAIGRETTE("lime cilantro jalapeno vinaigrette", .25, 140),
     MISO_SESAME_GINGER_DRESSING("miso sesame ginger dressing", .25, 140),
     PESTO_VINAIGRETTE("pesto vinaigrette", .25, 190),
