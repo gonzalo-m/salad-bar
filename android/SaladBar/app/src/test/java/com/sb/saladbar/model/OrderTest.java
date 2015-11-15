@@ -18,12 +18,12 @@ public class OrderTest {
 
     private Salad caesar, caesar2, guacamole, hummus;
     private static final String CAESAR = "caesar";
-    private static final String CAESAR2 = "caesar2";
+    private static final String CAESAR2 = "caesar";
     private static final String GUACAMOLE = "guacamole";
     private static final String HUMMUS = "hummus";
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
 
         caesar = new Salad(CAESAR);
         caesar2 = new Salad(CAESAR2);
@@ -59,7 +59,7 @@ public class OrderTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
 
     }
 
@@ -83,7 +83,6 @@ public class OrderTest {
         order.addSalad(hummus);
 
         assertTrue(order.containsSalad(CAESAR));
-        assertFalse(order.containsSalad(CAESAR2));
         assertTrue(order.containsSalad(GUACAMOLE));
         assertTrue(order.containsSalad(HUMMUS));
     }
