@@ -14,8 +14,20 @@ import android.widget.RelativeLayout;
 
 public class ToppingFragmentTab extends Fragment {
 
-    private static int[] imgs = { R.drawable.apples, R.drawable.chickpeas, R.drawable.cucumber, R.drawable.pear,
-                                  R.drawable.pita_chip, R.drawable.red_onion, R.drawable.sunflower};
+    private static int[] imgs = {
+            R.drawable.topping_pita_chip, R.drawable.topping_tortilla_chips,
+            R.drawable.topping_toasted_almonds, R.drawable.topping_sunflower_seeds,
+            R.drawable.topping_raw_seeds, R.drawable.topping_roasted_sweet_potato,
+            R.drawable.topping_spicy_quinoa, R.drawable.topping_peppers,
+            R.drawable.topping_sprouts, R.drawable.topping_organic_carrot,
+            R.drawable.topping_shredded_cabbage, R.drawable.topping_raw_beet,
+            R.drawable.topping_roasted_brussel_sprouts, R.drawable.topping_spicy_broccoli,
+            R.drawable.topping_red_onion, R.drawable.topping_cucumber,
+            R.drawable.topping_organic_chickpeas, R.drawable.topping_tomato,
+            R.drawable.topping_apples, R.drawable.topping_basil,
+            R.drawable.topping_cilantro, R.drawable.topping_raisins,
+            R.drawable.topping_raw_pecan, R.drawable.topping_pear,
+            R.drawable.topping_raw_corn};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

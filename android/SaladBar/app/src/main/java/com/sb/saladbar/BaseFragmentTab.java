@@ -10,16 +10,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import com.sb.saladbar.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class BaseFragmentTab extends Fragment {
 
-    private static int[] imgs = { R.drawable.baby_spinach, R.drawable.lettuce, R.drawable.romaine, R.drawable.mesclun};
+    private static int[] imgs = {
+            R.drawable.base_organic_argula, R.drawable.base_organic_baby_spinach,
+            R.drawable.base_organic_mesclun, R.drawable.base_organic_wild_rice,
+            R.drawable.base_shredded_kale, R.drawable.base_organic_quinoa_farro,
+            R.drawable.base_chooped_romaine};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -16,7 +16,12 @@ import com.sb.saladbar.R;
 
 public class PremiumFragmentTab extends Fragment {
 
-    private static int[] imgs = { R.drawable.grilled_chicken};
+    private static int[] imgs = {
+            R.drawable.premium_housemade_hummus, R.drawable.premium_goat_cheese,
+            R.drawable.premium_organic_white_cheddar, R.drawable.premium_shaved_parmesan,
+            R.drawable.premium_hard_boiled_egg, R.drawable.premium_roasted_curry_cauliflower,
+            R.drawable.premium_avocado, R.drawable.premium_bacon,
+            R.drawable.premium_roasted_chicken};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
