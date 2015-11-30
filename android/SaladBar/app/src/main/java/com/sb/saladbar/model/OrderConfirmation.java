@@ -6,35 +6,30 @@ import java.util.Date;
 /**
  * Created by G on 11/23/15.
  */
-public class OrderConfirmation extends Order {
+public class OrderConfirmation {
 
-    private static int orderIds;
+    private static int orderIds = 1;
 
-    private int orderNum;
-    private Calendar confirmationDate;
+    private final int orderNum;
+    private final Calendar confirmationDate;
+    private final Order orderPlaced;
 
-    public OrderConfirmation(Order order) {
+    public OrderConfirmation(Order orderPlaced) {
         orderNum = orderIds++;
         confirmationDate = Calendar.getInstance();
-    }
-
-    public static void setOrderIds(int orderIds) {
-        OrderConfirmation.orderIds = orderIds;
+        this.orderPlaced = orderPlaced;
     }
 
     public int getOrderNum() {
         return orderNum;
     }
 
-    public void setOrderNum(int orderNum) {
-        this.orderNum = orderNum;
-    }
-
-    public Date getConfirmationDate() {
+    public Calendar getConfirmationDate() {
         return confirmationDate;
     }
 
-    public void setConfirmationDate(Date confirmationDate) {
-        this.confirmationDate = confirmationDate;
+    public Order getOrderPlaced() {
+        return orderPlaced;
     }
+
 }

@@ -13,10 +13,10 @@ import java.util.TreeSet;
  */
 public class Salad {
 
-    public static final int MAX_BASE_INGREDIENTS = 2;
-    public static final int MAX_TOPPING_INGREDIENTS = 10;
-    public static final int MAX_PREMIUM_INGREDIENTS = 5;
-    public static final int MAX_DRESSING_INGREDIENTS = 2;
+    public static final int MAX_BASE_INGREDIENTS = 1;
+    public static final int MAX_TOPPING_INGREDIENTS = 5;
+    public static final int MAX_PREMIUM_INGREDIENTS = 3;
+    public static final int MAX_DRESSING_INGREDIENTS = 1;
 
     private static final int id = 0;
 

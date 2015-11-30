@@ -9,7 +9,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by G on 11/14/15.
@@ -21,6 +27,8 @@ public class OrderProcessorTest {
     private static final String CAESAR2 = "caesar";
     private static final String GUACAMOLE = "guacamole";
     private static final String HUMMUS = "hummus";
+
+    private static final boolean[] result = new boolean[2];
 
     @Before
     public void setUp() {
@@ -64,40 +72,54 @@ public class OrderProcessorTest {
     }
 
     @Test
-    public void testAddSalad() {
-        Order order = new Order();
-        assertNull(order.addSalad(caesar));
-        assertEquals(caesar, order.addSalad(caesar2));
-        assertNull(order.addSalad(guacamole));
-        assertNull(order.addSalad(hummus));
-
-        assertTrue(order.getNumSaladItems() == 3);
-        assertTrue(order.getTotal() == caesar2.getCost() + guacamole.getCost() + hummus.getCost());
-    }
-
-    @Test
-    public void testContainsSalad() {
-        Order order = new Order();
+    public void testPlaceOrder() throws InterruptedException {
+        final Order order = new Order();
         order.addSalad(caesar);
-        order.addSalad(guacamole);
-        order.addSalad(hummus);
 
-        assertTrue(order.containsSalad(CAESAR));
-        assertTrue(order.containsSalad(GUACAMOLE));
-        assertTrue(order.containsSalad(HUMMUS));
-    }
+        // create  a signal to let us know when our task is done.
+        final CountDownLatch signal = new CountDownLatch(1);
 
-    @Test
-    public void testRemoveSalad() {
-        Order order = new Order();
-        order.addSalad(caesar);
-        order.addSalad(guacamole);
-        order.addSalad(hummus);
+        final OnOrderProcessed onOrderProcessed = new OnOrderProcessed() {
+            @Override
+            public void onOnOrderConfirmation(OrderConfirmation orderConfirmation) {
+                System.out.println("Order confirmed");
+                result[0] = orderConfirmation.getOrderNum() == 1;
+            }
 
-        assertEquals(caesar, order.removeSalad(CAESAR));
-        assertEquals(guacamole, order.removeSalad(GUACAMOLE));
-        assertEquals(hummus, order.removeSalad(HUMMUS));
+            @Override
+            public void onOrderReady(OrderConfirmation orderConfirmation) {
+                System.out.println("Order ready");
+                result[1] = orderConfirmation.getOrderPlaced().containsSalad(CAESAR);
+                signal.countDown();
 
-        assertTrue(order.isEmpty());
+            }
+        };
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                OrderConfirmation confirmation = new OrderConfirmation(order);
+                final int twoSeconds = 2000;
+                final int fiveSeconds = 5000;
+                sleep(twoSeconds); // simulate salad ordering request
+                onOrderProcessed.onOnOrderConfirmation(confirmation);
+                sleep(fiveSeconds); // simulate cooking staff preparing food
+                onOrderProcessed.onOrderReady(confirmation);
+
+            }
+            private void sleep(int delay) {
+                try {
+                    Thread.sleep(delay);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+
+        signal.await();
+        assertTrue(result[0]);
+        assertTrue(result[1]);
     }
 }
