@@ -34,13 +34,13 @@ public class SaladBarFragment extends Fragment {
         tabHost.setup(getActivity(), getChildFragmentManager(), android.R.id.tabcontent);
 
         tabHost.addTab(tabHost.newTabSpec(BASES).setIndicator(BASES, null),
-                BaseFragmentTab.class, null);
+                FragmentTab.class, null);
         tabHost.addTab(tabHost.newTabSpec(TOPPINGS).setIndicator(TOPPINGS, null),
-                ToppingFragmentTab.class, null);
+                FragmentTab.class, null);
         tabHost.addTab(tabHost.newTabSpec(PREMIUMS).setIndicator(PREMIUMS, null),
-                PremiumFragmentTab.class, null);
-        tabHost.addTab(tabHost.newTabSpec(PREMIUMS).setIndicator(PREMIUMS, null), // add dressings
-                PremiumFragmentTab.class, null);
+                FragmentTab.class, null);
+        tabHost.addTab(tabHost.newTabSpec(DRESSINGS).setIndicator(DRESSINGS, null),
+                FragmentTab.class, null);
         return rootView;
     }
 

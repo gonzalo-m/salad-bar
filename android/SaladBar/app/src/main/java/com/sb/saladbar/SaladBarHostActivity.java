@@ -4,7 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+
 
 public class SaladBarHostActivity extends AppCompatActivity {
 
@@ -12,6 +14,8 @@ public class SaladBarHostActivity extends AppCompatActivity {
 
     private SaladBarFragment mSaladBarFragment = new SaladBarFragment();
     private PlaceOrderFragment mPlaceOrderFragment = new PlaceOrderFragment();
+
+    private MenuItem mToggleMenuButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +36,9 @@ public class SaladBarHostActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_salad_bar_host, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_salad_bar_host, menu );
+        mToggleMenuButton = menu.findItem(R.id.action_add_order);
         return true;
     }
 
@@ -47,11 +53,13 @@ public class SaladBarHostActivity extends AppCompatActivity {
         if (id == R.id.action_add_order) {
             Log.i(TAG, "adding order");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            mToggleMenuButton.setIcon(android.R.drawable.ic_input_add);
             showNextFragment(null);
             return true;
         } else if (id == android.R.id.home) {
             Log.i(TAG, "back");
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            mToggleMenuButton.setIcon(R.drawable.paperbag_brown);
             getSupportFragmentManager().popBackStack();
         }
 
