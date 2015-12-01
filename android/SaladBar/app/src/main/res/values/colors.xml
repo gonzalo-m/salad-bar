@@ -8,4 +8,7 @@
     <color name="red">#DD2C00</color>
     <color name="colorPrimary">#43a047</color>
     <color name="colorAccent">#81c784</color>
+
+    <color name="ColorPrimary">#FF5722</color>
+    <color name="ColorPrimaryDark">#E64A19</color>
 </resources>

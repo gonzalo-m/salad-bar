@@ -8,6 +8,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.sb.saladbar.fragmenttabs.BaseFragmentTab;
+import com.sb.saladbar.fragmenttabs.PremiumFragmentTab;
+import com.sb.saladbar.fragmenttabs.ToppingFragmentTab;
+
+/**
+ *
+ * @deprecated use SaladBarHostActivity and SaladBarFragmentInstead instead.
+ */
 public class SaladBuilderActivity extends FragmentActivity {
     private FragmentTabHost mTabHost;
 

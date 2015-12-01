@@ -24,11 +24,13 @@ public enum Dressing implements Ingredient {
     private String name;
     private double cost;
     private int calories;
+    private int resId;
 
-    Dressing(String name, double cost, int calories) {
+    Dressing(String name, double cost, int calories) { // add resid
         this.name = name;
         this.cost = cost;
         this.calories = calories;
+        this.resId = resId;
     }
 
     @Override
@@ -45,4 +47,11 @@ public enum Dressing implements Ingredient {
     public int getCalories() {
         return calories;
     }
+
+    @Override
+    public int getResId() {
+        return 0;
+    }
+
+
 }
