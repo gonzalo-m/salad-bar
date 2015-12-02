@@ -1,5 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_choose_restaurant"
+        android:icon="@drawable/store_icon"
+        android:title="Choose Restaurant"
+        app:showAsAction="always" />
     <item android:id="@+id/action_add_order"
         android:icon="@drawable/paperbag_brown"
         android:title="@string/action_add_order"
