@@ -27,6 +27,15 @@ public class Order {
         return total;
     }
 
+    public int getCalories() {
+        int total = 0;
+        for (Map.Entry<String, Salad> entry: saladItems.entrySet()) {
+            Salad salad  = entry.getValue();
+            total += salad.getCalories();
+        }
+        return total;
+    }
+
     public boolean isEmpty() {
         return saladItems.isEmpty();
     }
@@ -45,5 +54,12 @@ public class Order {
 
     public Salad removeSalad(String saladName) {
         return saladItems.remove(saladName);
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "saladItems=" + saladItems +
+                '}';
     }
 }

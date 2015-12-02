@@ -16,12 +16,21 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Price"
-            android:id="@+id/saladPrice"
+            android:text="$"
+            android:id="@+id/salad_price"
             android:layout_gravity="right|top"
             android:layout_marginTop="20dp"
-            android:textSize="30dp"
-            android:layout_marginRight="30dp" />
+            android:layout_marginRight="30dp"
+            android:textSize="16sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="cal"
+            android:id="@+id/salad_calories"
+            android:layout_gravity="left|top"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:textSize="16sp" />
     </FrameLayout>
 
     <android.support.v4.app.FragmentTabHost

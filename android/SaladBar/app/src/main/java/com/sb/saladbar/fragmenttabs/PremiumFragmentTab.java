@@ -1,6 +1,8 @@
 package com.sb.saladbar.fragmenttabs;
 
 import android.content.ClipData;
+import android.content.ClipDescription;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,15 +14,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.sb.saladbar.R;
+import com.sb.saladbar.SaladBarFragment;
+import com.sb.saladbar.model.ingredients.Base;
+import com.sb.saladbar.model.ingredients.Ingredient;
+import com.sb.saladbar.model.ingredients.Premium;
 
 public class PremiumFragmentTab extends Fragment {
-
-    private static int[] imgs = {
-            R.drawable.premium_housemade_hummus, R.drawable.premium_goat_cheese,
-            R.drawable.premium_organic_white_cheddar, R.drawable.premium_shaved_parmesan,
-            R.drawable.premium_hard_boiled_egg, R.drawable.premium_roasted_curry_cauliflower,
-            R.drawable.premium_avocado, R.drawable.premium_bacon,
-            R.drawable.premium_roasted_chicken};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,31 +31,36 @@ public class PremiumFragmentTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.scrollable_ingredients, container, false);
         LinearLayout linearLayout = (LinearLayout) v.findViewById(R.id.ingredients);
-        for (int i = 0; i < imgs.length; i++) {
+        for (Ingredient ingredient: Premium.values()) {
             // TODO - add names of premiums
             RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             param.setMargins(100, 100, 100, 100);
             ImageView temp = new ImageView(getActivity());
             temp.setLayoutParams(param);
-            temp.setImageDrawable(getResources().getDrawable(imgs[i]));
-            temp.setOnTouchListener(new MyTouchListener());
+            temp.setImageResource(ingredient.getResId());
+            Intent data = new Intent();
+            data.putExtra(SaladBarFragment.DRAG_DATA_KEY, (Premium)ingredient);
+            temp.setTag(data);
+            temp.setOnLongClickListener(new MyTouchListener());
             temp.setAdjustViewBounds(true);
             linearLayout.addView(temp);
         }
         return v;
     }
 
-    private final class MyTouchListener implements View.OnTouchListener {
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                ClipData data = ClipData.newPlainText("", "");
-                View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
-                view.startDrag(data, shadowBuilder, view, 0);
-                view.setVisibility(View.VISIBLE);
-                return true;
-            } else {
-                return false;
-            }
+    private final class MyTouchListener implements View.OnLongClickListener {
+
+        @Override
+        public boolean onLongClick(View view) {
+            Intent intent = (Intent) view.getTag();
+            Premium ingredient = (Premium) intent.getExtras().get(SaladBarFragment.DRAG_DATA_KEY);
+            ClipData.Item item =  new ClipData.Item(intent);
+            ClipData dragData = new ClipData(ingredient.getName(),
+                    new String[]{ ClipDescription.MIMETYPE_TEXT_PLAIN }, item);
+            View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
+            view.startDrag(dragData, shadowBuilder, view, 0);
+            view.setVisibility(View.VISIBLE);
+            return true;
         }
     }
 }

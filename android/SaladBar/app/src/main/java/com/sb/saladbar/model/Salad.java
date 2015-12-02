@@ -18,7 +18,7 @@ public class Salad {
     public static final int MAX_PREMIUM_INGREDIENTS = 3;
     public static final int MAX_DRESSING_INGREDIENTS = 1;
 
-    private static final int id = 0;
+    private static int id = 0;
 
     private final String name;
     private final TreeSet<Ingredient> baseIngredients;
@@ -27,7 +27,7 @@ public class Salad {
     private final TreeSet<Ingredient> dressingIngredients;
 
     public Salad() {
-        this("Custom Salad " + id);
+        this("Custom Salad " + (id++));
     }
 
     public Salad(String name) {

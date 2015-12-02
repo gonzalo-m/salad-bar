@@ -40,7 +40,7 @@ public class OrderProcessorTest {
 
         caesar.add(Base.SHREDDED_KALE);
         caesar.add(Base.CHOPPED_ROMAINE);
-        caesar.add(Premium.PARMESAN_CRISP);
+//        caesar.add(Premium.PARMESAN_CRISP);
         caesar.add(Premium.SHAVED_PARMESAN);
         caesar.add(Premium.ROASTED_CHICKEN);
         caesar.add(Topping.TOMATO);
@@ -57,8 +57,8 @@ public class OrderProcessorTest {
 
         hummus.add(Base.CHOPPED_ROMAINE);
         hummus.add(Base.SHREDDED_KALE);
-        hummus.add(Premium.BAKED_FALAFEL);
-        hummus.add(Premium.FETA_CHEESE);
+//        hummus.add(Premium.BAKED_FALAFEL);
+//        hummus.add(Premium.FETA_CHEESE);
         hummus.add(Topping.TOMATO);
         hummus.add(Topping.RED_ONION);
         hummus.add(Topping.CUCUMBER);

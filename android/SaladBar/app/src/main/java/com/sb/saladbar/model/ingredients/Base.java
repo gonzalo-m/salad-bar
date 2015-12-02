@@ -2,18 +2,20 @@ package com.sb.saladbar.model.ingredients;
 
 import com.sb.saladbar.R;
 
+import java.io.Serializable;
+
 /**
  * Created by G on 11/13/15.
  */
-public enum Base implements Ingredient {
+public enum Base implements Ingredient, Serializable {
 
-    CHOPPED_ROMAINE("chopped romaine", .10, 25, R.drawable.base_chooped_romaine),
-    ORGANIC_ARUGULA("organic arugula", .20, 25, R.drawable.base_organic_argula),
-    ORGANIC_BABY_SPINACH("organic baby spinach", .30, 25, R.drawable.base_organic_baby_spinach),
-    ORGANIC_MESCLUN("organic mesclun", .40, 25, R.drawable.base_organic_mesclun),
-    ORGANIC_WILD_RICE("organic wild rice", .50, 130, R.drawable.base_organic_wild_rice),
-    SHREDDED_KALE("shredded kale", .60, 40, R.drawable.base_shredded_kale),
-    WARM_QUINOA_AND_FARRO("warm quinoa and farro", .70, 160, R.drawable.base_organic_quinoa_farro);
+    CHOPPED_ROMAINE("Romaine", .10, 25, R.drawable.base_chooped_romaine),
+    ORGANIC_ARUGULA("Arugula", .20, 25, R.drawable.base_organic_argula),
+    ORGANIC_BABY_SPINACH("Spinach", .30, 25, R.drawable.base_organic_baby_spinach),
+    ORGANIC_MESCLUN("Mesculn", .40, 25, R.drawable.base_organic_mesclun),
+    ORGANIC_WILD_RICE("Wild rice", .50, 130, R.drawable.base_organic_wild_rice),
+    SHREDDED_KALE("Kale", .60, 40, R.drawable.base_shredded_kale),
+    WARM_QUINOA_AND_FARRO("Quinoa & Farro", .70, 160, R.drawable.base_organic_quinoa_farro);
 
 
     private String name;
