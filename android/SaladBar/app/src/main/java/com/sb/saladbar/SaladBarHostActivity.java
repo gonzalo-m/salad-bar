@@ -14,8 +14,10 @@ public class SaladBarHostActivity extends AppCompatActivity {
 
     private SaladBarFragment mSaladBarFragment = new SaladBarFragment();
     private PlaceOrderFragment mPlaceOrderFragment = new PlaceOrderFragment();
+    private RestaurantSelectorFragment mRestaurantSelectorFragment = new RestaurantSelectorFragment();
 
     private MenuItem mToggleMenuButton;
+    private MenuItem mToggleMenuButton2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +39,9 @@ public class SaladBarHostActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_salad_bar_host, menu );
+        inflater.inflate(R.menu.menu_salad_bar_host, menu);
         mToggleMenuButton = menu.findItem(R.id.action_add_order);
+        mToggleMenuButton2 = menu.findItem(R.id.action_choose_restaurant);
         return true;
     }
 
@@ -53,14 +56,25 @@ public class SaladBarHostActivity extends AppCompatActivity {
         if (id == R.id.action_add_order) {
             Log.i(TAG, "adding order");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            mToggleMenuButton.setVisible(true);
             mToggleMenuButton.setIcon(android.R.drawable.ic_input_add);
+            mToggleMenuButton2.setVisible(false);
             showNextFragment(null);
             return true;
         } else if (id == android.R.id.home) {
             Log.i(TAG, "back");
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            mToggleMenuButton.setVisible(true);
             mToggleMenuButton.setIcon(R.drawable.paperbag_brown);
+            mToggleMenuButton2.setVisible(true);
             getSupportFragmentManager().popBackStack();
+        } else if (id == R.id.action_choose_restaurant) {
+            Log.i(TAG, "adding order");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            mToggleMenuButton.setVisible(false);
+            mToggleMenuButton2.setVisible(false);
+            showRsFragment(null);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -73,6 +87,17 @@ public class SaladBarHostActivity extends AppCompatActivity {
                 .setCustomAnimations(R.anim.slide_right_enter, R.anim.slide_left_exit,
                         R.anim.slide_left_enter, R.anim.slide_right_exit)
                 .replace(R.id.fragment_container, mPlaceOrderFragment)
+                .addToBackStack(backStackName)
+                .commit();
+        getFragmentManager().executePendingTransactions();
+    }
+
+    public void showRsFragment(String backStackName) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.slide_right_enter, R.anim.slide_left_exit,
+                        R.anim.slide_left_enter, R.anim.slide_right_exit)
+                .replace(R.id.fragment_container, mRestaurantSelectorFragment)
                 .addToBackStack(backStackName)
                 .commit();
         getFragmentManager().executePendingTransactions();
