@@ -14,7 +14,7 @@ public enum Dressing implements Ingredient {
     CARROT_CHILI_VINAIGRETTE("Carrot Chili Vinaigrette", .25, 150, R.drawable.dressing_carrot_chili_vinaigrette),
     CRANBERRY_VINAGREITTE("Cranberry Vinaigrette", 25, 110, R.drawable.dressing_cranberry_vinaigrette),
     CUCUMBER_TAHINI_YOGURT_DRESSING("Cucumber Tahini Yogurt Dressing", .25, 110, R.drawable.dressing_cucumber_tahini_yogurt_dressing),
-    EXTRA_VIRGIN_OLIVE_OIL("Extra Virgin Olive oOil", .25, 130, R.drawable.dressing_extra_virgin_olive_oil),
+    EXTRA_VIRGIN_OLIVE_OIL("Extra Virgin Olive Oil", .25, 130, R.drawable.dressing_extra_virgin_olive_oil),
     FRESH_LEMON_SQUEEZE("Fresh Lemon Squeeze", .25, 0, R.drawable.dressing_fresh_lemon_squeeze),
     FRESH_LIME_SQUEEZE("Fresh Lime Squeeze", .25, 0, R.drawable.dressing_fresh_lime_squeeze),
     LIME_CILANTRO_JALAPENO_VINAIGRETTE("Lime Cilantro Jalapeno Vinaigrette", .25, 140, R.drawable.dressing_lime_cilantro_jalapeno_vinaigrette),

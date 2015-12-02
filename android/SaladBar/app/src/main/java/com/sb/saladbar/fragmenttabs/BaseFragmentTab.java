@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.sb.saladbar.R;
 import com.sb.saladbar.SaladBarFragment;
@@ -31,21 +32,24 @@ public class BaseFragmentTab extends Fragment {
         View v = inflater.inflate(R.layout.scrollable_ingredients, container, false);
         LinearLayout linearLayout = (LinearLayout) v.findViewById(R.id.ingredients);
         for (Ingredient ingredient: Base.values()) {
-
-            // TODO - add names of bases
-            RelativeLayout.LayoutParams param =
-                    new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
-                            RelativeLayout.LayoutParams.WRAP_CONTENT);
-            param.setMargins(100, 100, 100, 100);
-            ImageView temp = new ImageView(getActivity());
-            temp.setLayoutParams(param);
-            temp.setImageResource(ingredient.getResId());
             Intent data = new Intent();
-            data.putExtra(SaladBarFragment.DRAG_DATA_KEY, (Base)ingredient);
-            temp.setTag(data);
-            temp.setOnLongClickListener(new MyTouchListener());
-            temp.setAdjustViewBounds(true);
-            linearLayout.addView(temp);
+            data.putExtra(SaladBarFragment.DRAG_DATA_KEY, (Base) ingredient);
+
+            View viewGroup = LayoutInflater.from(getContext()).inflate(
+                    R.layout.ingredient_view_group, null);
+
+            ImageView imageView = (ImageView) viewGroup.findViewById(R.id.ingredient_img);
+            imageView.setImageResource(ingredient.getResId());
+            imageView.setOnLongClickListener(new MyTouchListener());
+            imageView.setAdjustViewBounds(true);
+            imageView.setTag(data);
+
+            TextView textView = (TextView) viewGroup.findViewById(R.id.ingredient_str);
+            textView.setText(ingredient.getName());
+            textView.setTextSize(14);
+
+            linearLayout.addView(viewGroup);
+
         }
         return v;
     }
