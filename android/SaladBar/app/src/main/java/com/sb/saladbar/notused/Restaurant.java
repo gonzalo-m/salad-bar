@@ -2,6 +2,7 @@ package com.sb.saladbar.notused;
 
 /**
  * Created by G on 11/14/15.
+ * @deprecated
  */
 public class Restaurant {
 

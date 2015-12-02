@@ -20,7 +20,9 @@ import com.sb.saladbar.model.ingredients.Ingredient;
 import com.sb.saladbar.model.ingredients.Premium;
 import com.sb.saladbar.model.ingredients.Topping;
 
-
+/**
+ * @deprecated
+ */
 public class FragmentTab extends Fragment {
 
     public static final String TAG = FragmentTab.class.getSimpleName();
