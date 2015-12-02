@@ -39,25 +39,23 @@ public class DressingFragmentTab extends Fragment {
         View v = inflater.inflate(R.layout.scrollable_ingredients, container, false);
         LinearLayout linearLayout = (LinearLayout) v.findViewById(R.id.ingredients);
         for (Ingredient ingredient: Dressing.values()) {
-            Intent data = new Intent();
-            data.putExtra(SaladBarFragment.DRAG_DATA_KEY, (Dressing) ingredient);
-
             View viewGroup = LayoutInflater.from(getContext()).inflate(
                     R.layout.ingredient_view_group, null);
+
+            SaladBarFragment.OnClickCallback onClickCallback = new SaladBarFragment.OnClickCallback(ingredient);
 
             ImageView imageView = (ImageView) viewGroup.findViewById(R.id.ingredient_img);
             imageView.setImageResource(ingredient.getResId());
             imageView.setId(ingredient.getResId());
             imageView.setOnLongClickListener(new MyTouchListener());
             imageView.setAdjustViewBounds(true);
+            Intent data = new Intent();
+            data.putExtra(SaladBarFragment.DRAG_DATA_KEY, (Dressing) ingredient);
             imageView.setTag(data);
-
+            imageView.setOnClickListener(onClickCallback);
             TextView textView = (TextView) viewGroup.findViewById(R.id.ingredient_str);
             textView.setText(ingredient.getName());
-            textView.setSingleLine(false);
-            textView.setMaxWidth(300);
             textView.setTextSize(14);
-            textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 
             linearLayout.addView(viewGroup);
         }

@@ -25,6 +25,7 @@ import com.sb.saladbar.model.ingredients.Ingredient;
 import com.sb.saladbar.model.ingredients.Premium;
 import com.sb.saladbar.model.ingredients.Topping;
 
+import java.io.Serializable;
 import java.text.NumberFormat;
 
 
@@ -39,9 +40,9 @@ public class SaladBarFragment extends Fragment {
     public static final String PREMIUMS     = "Premiums";
     public static final String DRESSINGS    = "Dressings";
 
-    private Salad mSalad;
-    private TextView mPriceView;
-    private TextView mCaloriesView;
+    private static Salad mSalad;
+    private static TextView mPriceView;
+    private static TextView mCaloriesView;
 
     private FragmentTabHost mTabHost;
 
@@ -49,6 +50,7 @@ public class SaladBarFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setRetainInstance(true);
         mSalad = new Salad();
     }
 
@@ -106,10 +108,11 @@ public class SaladBarFragment extends Fragment {
         matrix.setSaturation(0);
         ColorMatrixColorFilter cf = new ColorMatrixColorFilter(matrix);
         imageView.setColorFilter(cf);
-        imageView.setAlpha(128);
+        imageView.setAlpha(0.5f);
     }
 
-    private void updateViews() {
+
+    private static void updateViews() {
         mPriceView.setText(NumberFormat.getCurrencyInstance().format(mSalad.getCost()));
         mCaloriesView.setText(String.valueOf(mSalad.getCalories()) + " cal.");
     }
@@ -154,6 +157,27 @@ public class SaladBarFragment extends Fragment {
                     break;
             }
             return true;
+        }
+    }
+
+
+    public static class OnClickCallback implements Serializable, View.OnClickListener {
+
+        private Ingredient ingredient;
+
+        public OnClickCallback(Ingredient ingredient ){
+            this.ingredient = ingredient;
+        }
+
+        @Override
+        public void onClick(View v) {
+            ImageView image = (ImageView) v;
+            if (image.getAlpha() == 0.5f) {
+                image.setAlpha(1.0f);
+                image.setColorFilter(null);
+                mSalad.remove(ingredient);
+                updateViews();
+            }
         }
     }
 
