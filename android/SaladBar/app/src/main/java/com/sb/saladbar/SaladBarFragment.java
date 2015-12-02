@@ -1,6 +1,8 @@
 package com.sb.saladbar;
 
 import android.content.ClipData;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
@@ -9,6 +11,7 @@ import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sb.saladbar.fragmenttabs.BaseFragmentTab;
@@ -40,6 +43,8 @@ public class SaladBarFragment extends Fragment {
     private TextView mPriceView;
     private TextView mCaloriesView;
 
+    private FragmentTabHost mTabHost;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,18 +59,18 @@ public class SaladBarFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_salad_bar, null);
         mPriceView = (TextView) rootView.findViewById(R.id.salad_price);
         mCaloriesView = (TextView) rootView.findViewById(R.id.salad_calories);
-        FragmentTabHost tabHost = (FragmentTabHost) rootView.findViewById(android.R.id.tabhost);
+        mTabHost = (FragmentTabHost) rootView.findViewById(android.R.id.tabhost);
         rootView.findViewById(R.id.salad).setOnDragListener(new MyDragListener());
 
-        tabHost.setup(getActivity(), getChildFragmentManager(), android.R.id.tabcontent);
+        mTabHost.setup(getActivity(), getChildFragmentManager(), android.R.id.tabcontent);
 
-        tabHost.addTab(tabHost.newTabSpec(BASES).setIndicator(BASES),
+        mTabHost.addTab(mTabHost.newTabSpec(BASES).setIndicator(BASES),
                 BaseFragmentTab.class, null);
-        tabHost.addTab(tabHost.newTabSpec(TOPPINGS).setIndicator(TOPPINGS),
+        mTabHost.addTab(mTabHost.newTabSpec(TOPPINGS).setIndicator(TOPPINGS),
                 ToppingFragmentTab.class, null);
-        tabHost.addTab(tabHost.newTabSpec(PREMIUMS).setIndicator(PREMIUMS),
+        mTabHost.addTab(mTabHost.newTabSpec(PREMIUMS).setIndicator(PREMIUMS),
                 PremiumFragmentTab.class, null);
-        tabHost.addTab(tabHost.newTabSpec(DRESSINGS).setIndicator(DRESSINGS),
+        mTabHost.addTab(mTabHost.newTabSpec(DRESSINGS).setIndicator(DRESSINGS),
                 DressingFragmentTab.class, null);
 
         return rootView;
@@ -74,9 +79,9 @@ public class SaladBarFragment extends Fragment {
     public void updateOrder(Ingredient ingredient) {
 
         boolean reachedMax = false;
-        //TODO: 1. disable views when salad reached max number of ingredients for each type
         if (ingredient instanceof Base) {
             reachedMax = mSalad.getNumBaseIngredients() == Salad.MAX_BASE_INGREDIENTS ? true : false;
+
         } else if (ingredient instanceof Topping) {
             reachedMax = mSalad.getNumToppingIngredients() == Salad.MAX_TOPPING_INGREDIENTS ? true : false;
 
@@ -89,9 +94,19 @@ public class SaladBarFragment extends Fragment {
         }
         if (!reachedMax) {
             mSalad.add(ingredient);
+            setLocked(ingredient);
             updateViews();
         }
         Log.i(TAG, mSalad.toString());
+    }
+
+    private void setLocked(Ingredient ingredient) {
+        ImageView imageView = (ImageView) mTabHost.getChildAt(0).findViewById(ingredient.getResId());
+        ColorMatrix matrix = new ColorMatrix();
+        matrix.setSaturation(0);
+        ColorMatrixColorFilter cf = new ColorMatrixColorFilter(matrix);
+        imageView.setColorFilter(cf);
+        imageView.setAlpha(128);
     }
 
     private void updateViews() {
@@ -141,4 +156,5 @@ public class SaladBarFragment extends Fragment {
             return true;
         }
     }
+
 }

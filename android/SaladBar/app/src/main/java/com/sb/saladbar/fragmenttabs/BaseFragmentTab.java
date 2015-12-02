@@ -40,6 +40,7 @@ public class BaseFragmentTab extends Fragment {
 
             ImageView imageView = (ImageView) viewGroup.findViewById(R.id.ingredient_img);
             imageView.setImageResource(ingredient.getResId());
+            imageView.setId(ingredient.getResId());
             imageView.setOnLongClickListener(new MyTouchListener());
             imageView.setAdjustViewBounds(true);
             imageView.setTag(data);
