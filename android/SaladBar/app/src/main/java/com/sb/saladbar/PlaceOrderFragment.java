@@ -12,31 +12,56 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 
 import com.sb.saladbar.model.OnOrderProcessed;
 import com.sb.saladbar.model.Order;
 import com.sb.saladbar.model.OrderConfirmation;
 import com.sb.saladbar.model.OrderProcessor;
 import com.sb.saladbar.model.Salad;
+import com.sb.saladbar.utility.CustomListAdapter;
 
-//Todo will make list adapter for list view and order object.
+import java.util.Map;
+
 public class PlaceOrderFragment extends Fragment implements OnOrderProcessed {
 
     private static final String TAG = PlaceOrderFragment.class.getSimpleName();
     private Order mOrder = new Order();
 
+    ListView listView;
+    CustomListAdapter customListAdapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        customListAdapter = new CustomListAdapter(getActivity().getBaseContext());
+
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        if(null == customListAdapter){
+            Log.i(TAG, "customListAdapter is null");
+        }else{
+            Log.i(TAG, "customListAdapter is not null");
+        }
         View rootView = inflater.inflate(R.layout.fragment_place_order, null);
         Button placeOrderButton = (Button) rootView.findViewById(R.id.button_place_order);
+
+
+
+
+        listView = (ListView) rootView.findViewById(R.id.listView);
+        listView.setAdapter(customListAdapter);
+
         placeOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +96,18 @@ public class PlaceOrderFragment extends Fragment implements OnOrderProcessed {
     public void updateViews() {
         //TODO:  (Aldene) update views with order object
         Log.i(TAG, mOrder.toString());
+        if(null == mOrder.getSaladItems()) {
+            for (Map.Entry<String, Salad> entry : mOrder.getSaladItems().entrySet()) {
+                //customListAdapter.add(entry.getValue());
+            }
+        }
+
+        // Todo customListAdapter becomes null here. will fix.
+        // To test listview (temporary)
+        for(int i = 0; i < 5; i++){
+            Salad temp = new Salad();
+            //customListAdapter.add(temp);
+        }
     }
 
     @Override
