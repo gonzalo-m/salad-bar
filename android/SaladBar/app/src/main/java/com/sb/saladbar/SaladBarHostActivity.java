@@ -9,23 +9,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
-import com.sb.saladbar.model.Order;
 import com.sb.saladbar.model.Salad;
-import com.sb.saladbar.model.ingredients.Base;
-import com.sb.saladbar.model.ingredients.Dressing;
-import com.sb.saladbar.model.ingredients.Ingredient;
-import com.sb.saladbar.model.ingredients.Premium;
-import com.sb.saladbar.model.ingredients.Topping;
 
 
 public class SaladBarHostActivity extends AppCompatActivity {
 
     private static final String TAG = SaladBarHostActivity.class.getSimpleName();
-//
+
     private SaladBarFragment mSaladBarFragment = new SaladBarFragment();
     private PlaceOrderFragment mPlaceOrderFragment = new PlaceOrderFragment();
 
@@ -42,6 +33,7 @@ public class SaladBarHostActivity extends AppCompatActivity {
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
 
+        //TODO: (Mark) set title from restaurant selector
         setTitle("Sweetgreen");
 
         // add to host activity
@@ -70,16 +62,13 @@ public class SaladBarHostActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add_order) {
-            Log.i(TAG, "adding order");
             Fragment currFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
             if (currFragment != null && currFragment.isVisible()) {
                 if (currFragment instanceof SaladBarFragment) {
-                    Log.i(TAG, "curr: salad");
                     Salad temp = mSaladBarFragment.getAssembledSalad();
                     mPlaceOrderFragment.updateOrder(temp);
                     showNextFragment();
                 } else if (currFragment instanceof  PlaceOrderFragment) {
-                    Log.i(TAG, "curr: order");
                     mSaladBarFragment.assembleNewSalad();
                     showPreviousFragment();
                 }
@@ -87,7 +76,6 @@ public class SaladBarHostActivity extends AppCompatActivity {
             return true;
 
         } else if (id == android.R.id.home) {
-            Log.i(TAG, "back");
             showPreviousFragment();
         }
 
@@ -119,9 +107,8 @@ public class SaladBarHostActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
 
-    public void showProgressDialog(String title, String message) {
-//        mProgressDialog.setTitle(title);
-        mProgressDialog.setMessage(message);
+    public void showProgressDialog(int resId) {
+        mProgressDialog.setMessage(getResources().getString(resId));
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.show();
     }

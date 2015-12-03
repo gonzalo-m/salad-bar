@@ -23,6 +23,6 @@
     <string name="hash">#</string>
     <string name="order_confirmation">Order Confirmation</string>
     <string name="title_activity_salad_bar_host">SaladBarHostActivity</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="progress_message">Placing order...</string>
 
 </resources>

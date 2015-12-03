@@ -99,7 +99,6 @@ public class SaladBarFragment extends Fragment {
             setLocked(ingredient);
             updateViews();
         }
-        Log.i(TAG, mSalad.toString());
     }
 
     private void setLocked(Ingredient ingredient) {
@@ -118,7 +117,7 @@ public class SaladBarFragment extends Fragment {
     }
 
     /**
-     * Only called by its parent Activity (SaladBarFragment)
+     * Called only by its parent Activity to get current salad(SaladBarFragment)
      * @return
      */
     public Salad getAssembledSalad() {
@@ -126,7 +125,7 @@ public class SaladBarFragment extends Fragment {
     }
 
     /**
-     * Only called by its parent Activity (SaladBarFragment)
+     * Called only by its parent Activity to create new salad (SaladBarFragment)
      * @return
      */
     public void assembleNewSalad() {

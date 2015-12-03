@@ -109,6 +109,8 @@
             android:id="@+id/button_place_order"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
             android:background="@color/colorPrimary"/>
     </RelativeLayout>
 </LinearLayout>
