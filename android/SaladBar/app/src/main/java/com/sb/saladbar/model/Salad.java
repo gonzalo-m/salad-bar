@@ -6,12 +6,13 @@ import com.sb.saladbar.model.ingredients.Ingredient;
 import com.sb.saladbar.model.ingredients.Premium;
 import com.sb.saladbar.model.ingredients.Topping;
 
+import java.io.Serializable;
 import java.util.TreeSet;
 
 /**
  * Created by G on 11/14/15.
  */
-public class Salad {
+public class Salad implements Serializable {
 
     public static final int MAX_BASE_INGREDIENTS = 1;
     public static final int MAX_TOPPING_INGREDIENTS = 5;

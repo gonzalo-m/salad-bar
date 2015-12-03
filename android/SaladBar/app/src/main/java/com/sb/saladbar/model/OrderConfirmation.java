@@ -1,12 +1,13 @@
 package com.sb.saladbar.model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
 /**
  * Created by G on 11/23/15.
  */
-public class OrderConfirmation {
+public class OrderConfirmation implements Serializable {
 
     private static int orderIds = 1;
 

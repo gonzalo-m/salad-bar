@@ -1,12 +1,13 @@
 package com.sb.saladbar.model;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
 
 /**
  * Created by G on 11/14/15.
  */
-public class Order {
+public class Order implements Serializable {
 
     private final TreeMap<String, Salad> saladItems;
 

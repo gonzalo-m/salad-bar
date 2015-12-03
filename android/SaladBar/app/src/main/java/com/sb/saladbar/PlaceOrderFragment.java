@@ -62,9 +62,9 @@ public class PlaceOrderFragment extends Fragment implements OnOrderProcessed {
         OrderProcessor.placeOrder(mOrder, this, processDelay, cookDelay);
     }
 
-    //Todo add data to be passed to the activity
-    public void openConfirmationActivity() {
+    public void openConfirmationActivity(OrderConfirmation orderConfirmation) {
         Intent intent = new Intent(this.getActivity(), OrderConfirmationActivity.class);
+        intent.putExtra(Intent.EXTRA_INTENT, orderConfirmation);
         startActivity(intent);
     }
 
@@ -76,7 +76,7 @@ public class PlaceOrderFragment extends Fragment implements OnOrderProcessed {
     @Override
     public void onOnOrderConfirmation(OrderConfirmation orderConfirmation) {
         ((SaladBarHostActivity) getActivity()).hideProgressBar();
-        openConfirmationActivity();
+        openConfirmationActivity(orderConfirmation);
     }
 
     @Override
