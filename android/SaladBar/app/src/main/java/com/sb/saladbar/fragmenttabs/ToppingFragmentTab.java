@@ -3,6 +3,8 @@ package com.sb.saladbar.fragmenttabs;
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.content.Intent;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.sb.saladbar.ImageStateTracker;
 import com.sb.saladbar.R;
 import com.sb.saladbar.SaladBarFragment;
 import com.sb.saladbar.model.ingredients.Base;
@@ -34,6 +37,7 @@ public class ToppingFragmentTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.scrollable_ingredients, container, false);
         LinearLayout linearLayout = (LinearLayout) v.findViewById(R.id.ingredients);
+        ImageStateTracker imageStateTracker = (ImageStateTracker) getArguments().get("imageState");
         for (Ingredient ingredient: Topping.values()) {
             View viewGroup = LayoutInflater.from(getContext()).inflate(
                     R.layout.ingredient_view_group, null);
@@ -52,6 +56,14 @@ public class ToppingFragmentTab extends Fragment {
             TextView textView = (TextView) viewGroup.findViewById(R.id.ingredient_str);
             textView.setText(ingredient.getName());
             textView.setTextSize(14);
+
+            if (!(imageStateTracker.getImageStateHashMap().size() == 0) && imageStateTracker.contains(ingredient)) {
+                ColorMatrix matrix = new ColorMatrix();
+                matrix.setSaturation(0);
+                ColorMatrixColorFilter cf = new ColorMatrixColorFilter(matrix);
+                imageView.setColorFilter(cf);
+                imageView.setAlpha(0.5f);
+            }
 
             linearLayout.addView(viewGroup);
         }
