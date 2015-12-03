@@ -6,18 +6,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sb.saladbar.R;
 import com.sb.saladbar.SaladBarFragment;
 import com.sb.saladbar.model.ingredients.Base;
 import com.sb.saladbar.model.ingredients.Ingredient;
+
+
+import static com.sb.saladbar.SaladBarFragment.*;
 
 public class BaseFragmentTab extends Fragment {
 
@@ -51,7 +52,6 @@ public class BaseFragmentTab extends Fragment {
             textView.setTextSize(14);
 
             linearLayout.addView(viewGroup);
-
         }
         return v;
     }
@@ -61,7 +61,7 @@ public class BaseFragmentTab extends Fragment {
         @Override
         public boolean onLongClick(View view) {
             Intent intent = (Intent) view.getTag();
-            Base ingredient = (Base) intent.getExtras().get(SaladBarFragment.DRAG_DATA_KEY);
+            Base ingredient = (Base) intent.getExtras().get(DRAG_DATA_KEY);
             ClipData.Item item =  new ClipData.Item(intent);
             ClipData dragData = new ClipData(ingredient.getName(),
                     new String[]{ ClipDescription.MIMETYPE_TEXT_PLAIN }, item);

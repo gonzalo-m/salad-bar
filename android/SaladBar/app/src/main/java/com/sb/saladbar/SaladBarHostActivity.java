@@ -1,5 +1,7 @@
 package com.sb.saladbar;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.sb.saladbar.model.Order;
@@ -27,12 +30,17 @@ public class SaladBarHostActivity extends AppCompatActivity {
     private PlaceOrderFragment mPlaceOrderFragment = new PlaceOrderFragment();
 
     private MenuItem mToggleMenuButton;
-    private Order mOrder = new Order();
+    private ProgressDialog mProgressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_salad_bar_host);
+
+        mProgressDialog = new ProgressDialog(this, AlertDialog.THEME_HOLO_DARK);
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+
 
         setTitle("Sweetgreen");
 
@@ -68,8 +76,7 @@ public class SaladBarHostActivity extends AppCompatActivity {
                 if (currFragment instanceof SaladBarFragment) {
                     Log.i(TAG, "curr: salad");
                     Salad temp = mSaladBarFragment.getAssembledSalad();
-                    mOrder.addSalad(temp);
-                    mPlaceOrderFragment.updateOrder(mOrder);
+                    mPlaceOrderFragment.updateOrder(temp);
                     showNextFragment();
                 } else if (currFragment instanceof  PlaceOrderFragment) {
                     Log.i(TAG, "curr: order");
@@ -110,6 +117,17 @@ public class SaladBarHostActivity extends AppCompatActivity {
                 .commit();
         mToggleMenuButton.setIcon(R.drawable.paperbag_brown);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+    }
+
+    public void showProgressDialog(String title, String message) {
+//        mProgressDialog.setTitle(title);
+        mProgressDialog.setMessage(message);
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.show();
+    }
+
+    public void hideProgressBar() {
+        mProgressDialog.dismiss();
     }
 
 }
