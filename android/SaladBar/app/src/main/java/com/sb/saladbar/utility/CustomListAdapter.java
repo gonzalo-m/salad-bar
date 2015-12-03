@@ -11,11 +11,13 @@ import android.widget.TextView;
 
 import com.sb.saladbar.R;
 import com.sb.saladbar.model.Salad;
+import com.sb.saladbar.model.ingredients.Ingredient;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by AVillardo on 12/2/2015.
@@ -34,6 +36,7 @@ public class CustomListAdapter extends BaseAdapter {
         saladItems.add(item);
         notifyDataSetChanged();
     }
+
     @Override
     public int getCount() {
         return 0;
@@ -61,6 +64,33 @@ public class CustomListAdapter extends BaseAdapter {
         final TextView orderIngredientsTextView = (TextView) itemLayout.findViewById(R.id.textView_order_ingredients);
         final TextView orderPriceTextView = (TextView) itemLayout.findViewById(R.id.textView_order_price);
 
+        orderNumTextView.setText(position);
+        orderPriceTextView.setText(item.getCost()+"");
+        orderNameTextView.setText(item.getName());
+
+        String ingredients = ingredientsToString(item);
+        orderIngredientsTextView.setText(ingredients);
         return itemLayout;
+    }
+
+    public String ingredientsToString(Salad salad) {
+        String ingredients = null;
+
+        for (Ingredient i : salad.getBaseIngredients()) {
+            ingredients += i.getName() + " ";
+        }
+
+        for (Ingredient i : salad.getDressingIngredients()) {
+            ingredients += i.getName() + " ";
+        }
+
+        for (Ingredient i : salad.getPremiumIngredients()) {
+            ingredients += i.getName() + " ";
+        }
+
+        for (Ingredient i : salad.getToppingIngredients()) {
+            ingredients += i.getName() + " ";
+        }
+        return ingredients;
     }
 }
