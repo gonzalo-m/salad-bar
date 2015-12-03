@@ -165,6 +165,22 @@ public class Salad implements Serializable {
         dressingIngredients.clear();
     }
 
+    public TreeSet<Ingredient> getBaseIngredients() {
+        return baseIngredients;
+    }
+
+    public TreeSet<Ingredient> getToppingIngredients() {
+        return toppingIngredients;
+    }
+
+    public TreeSet<Ingredient> getPremiumIngredients() {
+        return premiumIngredients;
+    }
+
+    public TreeSet<Ingredient> getDressingIngredients() {
+        return dressingIngredients;
+    }
+
     @Override
     public String toString() {
         return "Salad{" +

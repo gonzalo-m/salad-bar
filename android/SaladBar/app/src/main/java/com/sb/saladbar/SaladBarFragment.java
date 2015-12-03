@@ -46,12 +46,15 @@ public class SaladBarFragment extends Fragment {
 
     private FragmentTabHost mTabHost;
 
+    private static ImageStateTracker mImageState;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setRetainInstance(true);
         mSalad = new Salad();
+        mImageState = new ImageStateTracker();
     }
 
     @Override
@@ -66,14 +69,17 @@ public class SaladBarFragment extends Fragment {
 
         mTabHost.setup(getActivity(), getChildFragmentManager(), android.R.id.tabcontent);
 
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("imageState", mImageState);
+
         mTabHost.addTab(mTabHost.newTabSpec(BASES).setIndicator(BASES),
-                BaseFragmentTab.class, null);
+                BaseFragmentTab.class, bundle);
         mTabHost.addTab(mTabHost.newTabSpec(TOPPINGS).setIndicator(TOPPINGS),
-                ToppingFragmentTab.class, null);
+                ToppingFragmentTab.class, bundle);
         mTabHost.addTab(mTabHost.newTabSpec(PREMIUMS).setIndicator(PREMIUMS),
-                PremiumFragmentTab.class, null);
+                PremiumFragmentTab.class, bundle);
         mTabHost.addTab(mTabHost.newTabSpec(DRESSINGS).setIndicator(DRESSINGS),
-                DressingFragmentTab.class, null);
+                DressingFragmentTab.class, bundle);
 
         return rootView;
     }
@@ -108,6 +114,7 @@ public class SaladBarFragment extends Fragment {
         ColorMatrixColorFilter cf = new ColorMatrixColorFilter(matrix);
         imageView.setColorFilter(cf);
         imageView.setAlpha(0.5f);
+        mImageState.add(ingredient, true);
     }
 
 
@@ -176,6 +183,7 @@ public class SaladBarFragment extends Fragment {
                 image.setColorFilter(null);
                 mSalad.remove(ingredient);
                 updateViews();
+                mImageState.remove(ingredient);
             }
         }
     }

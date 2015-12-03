@@ -9,13 +9,13 @@ import java.io.Serializable;
  */
 public enum Base implements Ingredient, Serializable {
 
-    CHOPPED_ROMAINE("Romaine", .10, 25, R.drawable.base_chooped_romaine),
-    ORGANIC_ARUGULA("Arugula", .20, 25, R.drawable.base_organic_argula),
-    ORGANIC_BABY_SPINACH("Spinach", .30, 25, R.drawable.base_organic_baby_spinach),
-    ORGANIC_MESCLUN("Mesculn", .40, 25, R.drawable.base_organic_mesclun),
-    ORGANIC_WILD_RICE("Wild rice", .50, 130, R.drawable.base_organic_wild_rice),
-    SHREDDED_KALE("Kale", .60, 40, R.drawable.base_shredded_kale),
-    WARM_QUINOA_AND_FARRO("Quinoa & Farro", .70, 160, R.drawable.base_organic_quinoa_farro);
+    CHOPPED_ROMAINE("Romaine", 1.50, 25, R.drawable.base_chooped_romaine),
+    ORGANIC_ARUGULA("Arugula", 1.50, 25, R.drawable.base_organic_argula),
+    ORGANIC_BABY_SPINACH("Spinach", 1.50, 25, R.drawable.base_organic_baby_spinach),
+    ORGANIC_MESCLUN("Mesculn", 1.50, 25, R.drawable.base_organic_mesclun),
+    ORGANIC_WILD_RICE("Wild rice", 1.50, 130, R.drawable.base_organic_wild_rice),
+    SHREDDED_KALE("Kale", 1.60, 40, R.drawable.base_shredded_kale),
+    WARM_QUINOA_AND_FARRO("Quinoa & Farro", 1.80, 160, R.drawable.base_organic_quinoa_farro);
 
 
     private String name;
