@@ -7,27 +7,29 @@ import com.sb.saladbar.R;
  */
 public enum Premium implements Ingredient {
 
-    AVOCADO("Avocado", 2.25, 140, R.drawable.premium_avocado),
-    BACON("Bacon", 2.00, 170, R.drawable.premium_bacon),
-    GOAT_CHEESE("Goat Cheese", 1.75, 80, R.drawable.premium_goat_cheese),
-    HARD_BOILED_EGG("Egg", 2.00, 80, R.drawable.premium_hard_boiled_egg),
-    HOUSEMADE_HUMMUS("Hummus", 2.25, 90, R.drawable.premium_housemade_hummus),
-    ORGANIC_WHITE_CHEDDAR("White Cheddar", 1.75, 130, R.drawable.premium_organic_white_cheddar),
-    ROASTED_CHICKEN("Chicken", 2.50, 140, R.drawable.premium_roasted_chicken),
-    ROASTED_CURRY_CAULIFLOWER("Cauliflower", 2.25, 30, R.drawable.premium_roasted_curry_cauliflower),
-    SHAVED_PARMESAN("Parmesan", 1.75, 45, R.drawable.premium_shaved_parmesan);
+    AVOCADO("Avocado", 2.25, 140, R.drawable.premium_avocado, R.drawable.avacado_layer),
+    BACON("Bacon", 2.00, 170, R.drawable.premium_bacon, R.drawable.bacon_layer),
+    GOAT_CHEESE("Goat Cheese", 1.75, 80, R.drawable.premium_goat_cheese, R.drawable.premium_goat_cheese),
+    HARD_BOILED_EGG("Egg", 2.00, 80, R.drawable.premium_hard_boiled_egg, R.drawable.premium_hard_boiled_egg),
+    HOUSEMADE_HUMMUS("Hummus", 2.25, 90, R.drawable.premium_housemade_hummus, R.drawable.premium_housemade_hummus),
+    ORGANIC_WHITE_CHEDDAR("White Cheddar", 1.75, 130, R.drawable.premium_organic_white_cheddar, R.drawable.premium_organic_white_cheddar),
+    ROASTED_CHICKEN("Chicken", 2.50, 140, R.drawable.premium_roasted_chicken, R.drawable.chicken_layer),
+    ROASTED_CURRY_CAULIFLOWER("Cauliflower", 2.25, 30, R.drawable.premium_roasted_curry_cauliflower, R.drawable.premium_roasted_curry_cauliflower),
+    SHAVED_PARMESAN("Parmesan", 1.75, 45, R.drawable.premium_shaved_parmesan, R.drawable.premium_shaved_parmesan);
 
 
     private String name;
     private double cost;
     private int calories;
     private int resId;
+    private int layerId;
 
-    Premium(String name, double cost, int calories, int resId) {
+    Premium(String name, double cost, int calories, int resId, int layerId) {
         this.name = name;
         this.cost = cost;
         this.calories = calories;
         this.resId = resId;
+        this.layerId = layerId;
     }
 
     @Override
@@ -49,6 +51,9 @@ public enum Premium implements Ingredient {
     public int getResId() {
         return resId;
     }
+
+    @Override
+    public int getLayerId() { return layerId; }
 
 
 }
