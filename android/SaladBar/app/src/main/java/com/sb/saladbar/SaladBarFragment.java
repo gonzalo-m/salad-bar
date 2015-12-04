@@ -27,6 +27,7 @@ import com.sb.saladbar.model.ingredients.Topping;
 
 import java.io.Serializable;
 import java.text.NumberFormat;
+import java.util.Random;
 
 
 public class SaladBarFragment extends Fragment {
@@ -137,6 +138,34 @@ public class SaladBarFragment extends Fragment {
      */
     public void assembleNewSalad() {
         mSalad = new Salad();
+    }
+
+    public void fillRandomSalad() {
+        //adds base if no dressing(assume limit one dressing)
+        if (mSalad.getNumBaseIngredients() != mSalad.MAX_BASE_INGREDIENTS) {
+            updateOrder(Base.values()[new Random().nextInt(Base.values().length)]);
+        }
+
+        //adds toppings to max if not maxed
+        while (mSalad.getNumToppingIngredients() != mSalad.MAX_TOPPING_INGREDIENTS) {
+            Ingredient ingredient = Topping.values()[new Random().nextInt(Topping.values().length)];
+            if (!(mSalad.contains(ingredient))) {
+                updateOrder(ingredient);
+            }
+        }
+
+        //adds premiums to max if not maxed
+        while (mSalad.getNumPremiumIngredients() != mSalad.MAX_PREMIUM_INGREDIENTS) {
+            Ingredient ingredient = Premium.values()[new Random().nextInt(Premium.values().length)];
+            if (!(mSalad.contains(ingredient))) {
+                updateOrder(ingredient);
+            }
+        }
+
+        //adds dressing if no dressing(assume limit one dressing)
+        if (mSalad.getNumDressingIngredients() != mSalad.MAX_DRESSING_INGREDIENTS) {
+            updateOrder(Dressing.values()[new Random().nextInt(Dressing.values().length)]);
+        }
     }
 
     class MyDragListener implements View.OnDragListener {
