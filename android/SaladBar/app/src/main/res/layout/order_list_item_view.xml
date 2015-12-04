@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
         <View
             android:layout_width="1dp"
             android:layout_height="1dp"
-            android:layout_above="@+id/id_from_your_LinearLayout"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:id="@+id/view">
@@ -22,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="@string/order_number"
             android:id="@+id/textView_order_number"
-            android:textSize="28dp"
+            android:textSize="28sp"
             android:textColor="@color/black"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
@@ -32,19 +29,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/order_name"
+            android:layout_marginLeft="10dp"
             android:id="@+id/textView_order_name"
-            android:layout_above="@+id/view"
-            android:layout_toLeftOf="@+id/view"
-            android:layout_toStartOf="@+id/view" />
+            android:layout_alignTop="@+id/textView_order_number"
+            android:layout_toRightOf="@+id/textView_order_number"
+            android:layout_toEndOf="@+id/textView_order_number" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/order_ingredients"
+            android:layout_marginLeft="10dp"
             android:id="@+id/textView_order_ingredients"
-            android:layout_below="@+id/view"
-            android:layout_alignLeft="@+id/textView_order_name"
-            android:layout_alignStart="@+id/textView_order_name" />
+            android:layout_below="@+id/textView_order_name"
+            android:layout_toRightOf="@+id/textView_order_number"
+            android:layout_toEndOf="@+id/textView_order_number" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -52,10 +51,10 @@
             android:text="@string/order_price"
             android:id="@+id/textView_order_price"
             android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
 
     </RelativeLayout>
-</LinearLayout>

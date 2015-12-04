@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent">
+    android:background="@color/white">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -37,13 +37,17 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="60"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:background="@color/transparent"
         >
 
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/transparent"
+            android:divider="@color/transparent"
+            android:dividerHeight="5dp"
             android:id="@+id/listView" />
     </RelativeLayout>
 
@@ -66,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/total_amount"
-            android:id="@+id/textView_order_total_amount"
+            android:id="@+id/textView_order_total_price"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
@@ -81,8 +85,8 @@
             android:text="@string/total"
             android:id="@+id/textView3"
             android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/textView_order_total_amount"
-            android:layout_toStartOf="@+id/textView_order_total_amount"
+            android:layout_toLeftOf="@+id/textView_order_total_price"
+            android:layout_toStartOf="@+id/textView_order_total_price"
             android:layout_marginTop="10dp"
             android:textColor="@color/black"
             android:textSize="16dp"/>
@@ -106,6 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/place_order"
+            android:textColor="@color/white"
             android:id="@+id/button_place_order"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
