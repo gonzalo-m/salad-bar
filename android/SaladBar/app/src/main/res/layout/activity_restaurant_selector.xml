@@ -2,8 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="com.sb.saladbar.RestaurantSelector">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="wrap_content" android:layout_height="94dp"
+    <TextView android:layout_width="wrap_content" android:layout_height="169dp"
         android:text="Choose your Restaurant"
         android:layout_gravity="center_horizontal|top"
         android:gravity="bottom"
@@ -65,6 +64,26 @@
         android:layout_height="140dp"
         android:layout_gravity="center_horizontal|bottom" >
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CONTINUE"
+            android:id="@+id/button"
+            android:onClick="continueActivity" />
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="112dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Welcome to SaladBar!"
+        android:id="@+id/textView4"
+        android:layout_gravity="right|top"
+        android:textSize="30dp"
+        android:layout_marginTop="40dp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:typeface="serif"
+        android:gravity="center" />
 
 </FrameLayout>

@@ -2,8 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sb.saladbar" >
 
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -21,27 +24,32 @@
         <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-         <activity
-             android:name=".SaladBarHostActivity"
-             android:label="@string/title_activity_salad_bar_host" >
-         <intent-filter>
-         <action android:name="android.intent.action.MAIN" />
-
-
-         <category android:name="android.intent.category.LAUNCHER" />
-         </intent-filter>
-         </activity>
         <activity
-            android:name=".OrderConfirmationActivity"></activity>
-        <!--<activity-->
-            <!--android:name=".SaladBuilderActivity"-->
-            <!--android:label="@string/app_name" >-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+            android:name=".RestaurantSelectorActivity"
+            android:label="@string/title_activity_restaurant_selector"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <!-- Move main intent-filter here -->
+        </activity>
+        <activity
+            android:name=".SaladBarHostActivity"
+            android:label="@string/title_activity_salad_bar_host" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".OrderConfirmationActivity" />
+        <!-- <activity -->
+        <!-- android:name=".SaladBuilderActivity" -->
+        <!-- android:label="@string/app_name" > -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
     </application>
 
 </manifest>

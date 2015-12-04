@@ -3,6 +3,7 @@ package com.sb.saladbar;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.support.v4.app.Fragment;
@@ -40,9 +41,9 @@ public class SaladBarHostActivity extends AppCompatActivity {
         mProgressDialog = new ProgressDialog(this, AlertDialog.THEME_HOLO_DARK);
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
-
-        //TODO: (Mark) set title from restaurant selector
-        setTitle("Sweetgreen");
+        Intent intent = getIntent();
+        setTitle(intent.getStringExtra(RestaurantSelectorActivity.RESTAURANT_NAME));
+        setTitle("RestaurantSelectorActivity Not Active"); // TODO: REMOVE THIS LINE
 
         // add to host activity
         getSupportFragmentManager()

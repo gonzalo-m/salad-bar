@@ -28,5 +28,6 @@
     <string name="order_confirmation">Order Confirmation</string>
     <string name="title_activity_salad_bar_host">SaladBarHostActivity</string>
     <string name="progress_message">Placing order...</string>
+    <string name="title_activity_restaurant_selector">RestaurantSelectorActivity</string>
 
 </resources>
