@@ -8,11 +8,72 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="3">
+        <!-- Salad is base layer.
+             Then are ingredients 1-8 (base layer is not counted as ingredient,
+             nor are dressings.
+             -->
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/plate"
+            android:src="@drawable/romaine_base"
+            android:layout_gravity="bottom|center"
             android:id="@+id/salad"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:paddingBottom = "100dp"
+            android:visibility="invisible"
+            android:id="@+id/ingred_1"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:paddingBottom = "120dp"
+            android:visibility="invisible"
+            android:id="@+id/ingred_2"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:paddingBottom = "140dp"
+            android:visibility="invisible"
+            android:id="@+id/ingred_3"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:paddingBottom = "160dp"
+            android:visibility="invisible"
+            android:id="@+id/ingred_4"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:paddingBottom = "180dp"
+            android:visibility="invisible"
+            android:id="@+id/ingred_5"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:paddingBottom = "200dp"
+            android:visibility="invisible"
+            android:id="@+id/ingred_6"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:paddingBottom = "220dp"
+            android:visibility="invisible"
+            android:id="@+id/ingred_7"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:paddingBottom = "240dp"
+            android:visibility="invisible"
+            android:id="@+id/ingred_8"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

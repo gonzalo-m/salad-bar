@@ -2,6 +2,10 @@ package com.sb.saladbar;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +15,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.sb.saladbar.model.Salad;
+import com.sb.saladbar.utility.ShakeDeviceManager;
+
 
 
 public class SaladBarHostActivity extends AppCompatActivity {
@@ -23,6 +29,9 @@ public class SaladBarHostActivity extends AppCompatActivity {
     private MenuItem mToggleMenuButton;
     private ProgressDialog mProgressDialog;
 
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
+    private ShakeDeviceManager mShakeDeviceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +41,28 @@ public class SaladBarHostActivity extends AppCompatActivity {
         mProgressDialog = new ProgressDialog(this, AlertDialog.THEME_HOLO_DARK);
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
-
-        //TODO: (Mark) set title from restaurant selector
-        setTitle("Sweetgreen");
+        Intent intent = getIntent();
+        setTitle(intent.getStringExtra(RestaurantSelectorActivity.RESTAURANT_NAME));
+        setTitle("RestaurantSelectorActivity Not Active"); // TODO: REMOVE THIS LINE
 
         // add to host activity
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_container, mSaladBarFragment)
                 .commit();
+
+        //shake feature
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = mSensorManager
+                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mShakeDeviceManager = new ShakeDeviceManager();
+        mShakeDeviceManager.setOnShakeListener(new ShakeDeviceManager.OnShakeListener() {
+            @Override
+            public void onShake(int count) {
+                mSaladBarFragment.fillRandomSalad();
+            }
+
+        });
     }
 
 
@@ -117,4 +139,17 @@ public class SaladBarHostActivity extends AppCompatActivity {
         mProgressDialog.dismiss();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        //register Sensor manager onResume
+        mSensorManager.registerListener(mShakeDeviceManager, mAccelerometer, SensorManager.SENSOR_DELAY_UI);
+    }
+
+    @Override
+    public void onPause() {
+        //unregister Sensor manager onPause
+        mSensorManager.unregisterListener(mShakeDeviceManager);
+        super.onPause();
+    }
 }

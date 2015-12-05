@@ -12,31 +12,55 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.sb.saladbar.model.OnOrderProcessed;
 import com.sb.saladbar.model.Order;
 import com.sb.saladbar.model.OrderConfirmation;
 import com.sb.saladbar.model.OrderProcessor;
 import com.sb.saladbar.model.Salad;
+import com.sb.saladbar.utility.CustomListAdapter;
 
-//Todo will make list adapter for list view and order object.
+import java.util.Map;
+
 public class PlaceOrderFragment extends Fragment implements OnOrderProcessed {
 
     private static final String TAG = PlaceOrderFragment.class.getSimpleName();
     private Order mOrder = new Order();
 
+    CustomListAdapter customListAdapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_place_order, null);
+        View rootView = inflater.inflate(R.layout.fragment_place_order, container, false);
         Button placeOrderButton = (Button) rootView.findViewById(R.id.button_place_order);
+
+        // Added just to test if listview is working. Remove.
+        RelativeLayout footer = (RelativeLayout) inflater.inflate(R.layout.order_list_item_view, null);
+
+        ListView listView = (ListView)rootView.findViewById(R.id.listView);
+        listView.addFooterView(footer);
+
+        customListAdapter = new CustomListAdapter(getActivity());
+        listView.setAdapter(customListAdapter);
+
         placeOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +94,28 @@ public class PlaceOrderFragment extends Fragment implements OnOrderProcessed {
 
     public void updateViews() {
         //TODO:  (Aldene) update views with order object
+        //Todo customListAdapter becomes null here. will fix.
         Log.i(TAG, mOrder.toString());
+        if(null == mOrder.getSaladItems()) {
+            for (Map.Entry<String, Salad> entry : mOrder.getSaladItems().entrySet()) {
+                //customListAdapter.add(entry.getValue());
+            }
+        }
+
+
+        // To test listview (temporary)
+        if(null == customListAdapter){
+            Log.i(TAG, "customListAdapter is null");
+        } else {
+            Log.i(TAG, "customListAdapter is not null");
+
+            for(int i = 0; i < 5; i++){
+                Salad temp = new Salad();
+                customListAdapter.add(temp);
+                Log.i(TAG, "Loop number " + i);
+            }
+
+        }
     }
 
     @Override

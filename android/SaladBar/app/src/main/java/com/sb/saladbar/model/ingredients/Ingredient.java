@@ -11,5 +11,6 @@ public interface Ingredient {
     double getCost();
     int getCalories();
     int getResId();
+    int getLayerId();
 
 }

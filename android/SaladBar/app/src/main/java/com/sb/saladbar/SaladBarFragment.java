@@ -27,6 +27,7 @@ import com.sb.saladbar.model.ingredients.Topping;
 
 import java.io.Serializable;
 import java.text.NumberFormat;
+import java.util.Random;
 
 
 public class SaladBarFragment extends Fragment {
@@ -43,6 +44,18 @@ public class SaladBarFragment extends Fragment {
     private static Salad mSalad;
     private static TextView mPriceView;
     private static TextView mCaloriesView;
+
+    private static ImageView mBaseImage;
+
+    private static ImageView mIngred1;
+    private static ImageView mIngred2;
+    private static ImageView mIngred3;
+    private static ImageView mIngred4;
+    private static ImageView mIngred5;
+    private static ImageView mIngred6;
+    private static ImageView mIngred7;
+    private static ImageView mIngred8;
+
 
     private FragmentTabHost mTabHost;
 
@@ -62,6 +75,15 @@ public class SaladBarFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_salad_bar, null);
+        mBaseImage = (ImageView) rootView.findViewById(R.id.salad);
+        mIngred1 = (ImageView) rootView.findViewById(R.id.ingred_1);
+        mIngred2 = (ImageView) rootView.findViewById(R.id.ingred_2);
+        mIngred3 = (ImageView) rootView.findViewById(R.id.ingred_3);
+        mIngred4 = (ImageView) rootView.findViewById(R.id.ingred_4);
+        mIngred5 = (ImageView) rootView.findViewById(R.id.ingred_5);
+        mIngred6 = (ImageView) rootView.findViewById(R.id.ingred_6);
+        mIngred7 = (ImageView) rootView.findViewById(R.id.ingred_7);
+        mIngred8 = (ImageView) rootView.findViewById(R.id.ingred_8);
         mPriceView = (TextView) rootView.findViewById(R.id.salad_price);
         mCaloriesView = (TextView) rootView.findViewById(R.id.salad_calories);
         mTabHost = (FragmentTabHost) rootView.findViewById(android.R.id.tabhost);
@@ -104,6 +126,7 @@ public class SaladBarFragment extends Fragment {
             mSalad.add(ingredient);
             setLocked(ingredient);
             updateViews();
+            updateLayers();
         }
     }
 
@@ -139,6 +162,34 @@ public class SaladBarFragment extends Fragment {
         mSalad = new Salad();
     }
 
+    public void fillRandomSalad() {
+        //adds base if no dressing(assume limit one dressing)
+        if (mSalad.getNumBaseIngredients() != mSalad.MAX_BASE_INGREDIENTS) {
+            updateOrder(Base.values()[new Random().nextInt(Base.values().length)]);
+        }
+
+        //adds toppings to max if not maxed
+        while (mSalad.getNumToppingIngredients() != mSalad.MAX_TOPPING_INGREDIENTS) {
+            Ingredient ingredient = Topping.values()[new Random().nextInt(Topping.values().length)];
+            if (!(mSalad.contains(ingredient))) {
+                updateOrder(ingredient);
+            }
+        }
+
+        //adds premiums to max if not maxed
+        while (mSalad.getNumPremiumIngredients() != mSalad.MAX_PREMIUM_INGREDIENTS) {
+            Ingredient ingredient = Premium.values()[new Random().nextInt(Premium.values().length)];
+            if (!(mSalad.contains(ingredient))) {
+                updateOrder(ingredient);
+            }
+        }
+
+        //adds dressing if no dressing(assume limit one dressing)
+        if (mSalad.getNumDressingIngredients() != mSalad.MAX_DRESSING_INGREDIENTS) {
+            updateOrder(Dressing.values()[new Random().nextInt(Dressing.values().length)]);
+        }
+    }
+
     class MyDragListener implements View.OnDragListener {
 
         @Override
@@ -166,6 +217,74 @@ public class SaladBarFragment extends Fragment {
         }
     }
 
+    //Updates layered ingredient view on salad
+    private static void updateLayers() {
+        int totalNum = mSalad.getTotalNumIngredients();
+
+        int currIngredNum = 0;
+        ImageView currPrem;
+
+        //Generating base...
+        for ( Ingredient i : mSalad.getBaseIngredients() ) {
+            mBaseImage.setImageResource(i.getLayerId());
+        }
+        //Going through toppings...
+        for ( Ingredient i : mSalad.getToppingIngredients() ) {
+            currIngredNum++;
+            currPrem = updateCurrPrem(currIngredNum);
+            currPrem.setImageResource(i.getLayerId());
+            currPrem.setVisibility(View.VISIBLE);
+        }
+
+        //Going through Premium ingredients...
+        for (Ingredient i : mSalad.getPremiumIngredients()) {
+            currIngredNum++;
+            currPrem = updateCurrPrem(currIngredNum);
+            currPrem.setImageResource(i.getLayerId());
+            currPrem.setVisibility(View.VISIBLE);
+        }
+        //Hiding unused layers
+        hideRemainderPrem(currIngredNum);
+    }
+
+    //Goes through all ImageViews not used, renders them invisible
+    public static void hideRemainderPrem(int num ) {
+        for (int i = num; i < 8; i++ ) {
+            ImageView currPrem = updateCurrPrem(++i);
+            currPrem.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    //Figures out which ImageView needs to be used next
+    public static ImageView updateCurrPrem(int num) {
+        if ( num == 1 ) {
+            return mIngred1;
+        }
+        if ( num == 2 ) {
+            return mIngred2;
+        }
+        if ( num == 3 ) {
+            return mIngred3;
+        }
+        if ( num == 4 ) {
+            return mIngred4;
+        }
+        if ( num == 5 ) {
+            return mIngred5;
+        }
+        if ( num == 6 ) {
+            return mIngred6;
+        }
+        if ( num == 7 ) {
+            return mIngred7;
+        }
+        if ( num == 8 ) {
+            return mIngred8;
+        }
+        //Should never reach here
+        Log.i(TAG, "Incorrect Num Param");
+        return null;
+    }
 
     public static class OnClickCallback implements Serializable, View.OnClickListener {
 
@@ -183,6 +302,7 @@ public class SaladBarFragment extends Fragment {
                 image.setColorFilter(null);
                 mSalad.remove(ingredient);
                 updateViews();
+                updateLayers();
                 mImageState.remove(ingredient);
             }
         }
