@@ -9,7 +9,6 @@ import android.hardware.SensorManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -43,12 +42,12 @@ public class SaladBarHostActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         setTitle(intent.getStringExtra(RestaurantSelectorActivity.RESTAURANT_NAME));
-        setTitle("RestaurantSelectorActivity Not Active"); // TODO: REMOVE THIS LINE
 
         // add to host activity
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_container, mSaladBarFragment)
+                .addToBackStack(null)
                 .commit();
 
         //shake feature
@@ -87,46 +86,47 @@ public class SaladBarHostActivity extends AppCompatActivity {
             Fragment currFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
             if (currFragment != null && currFragment.isVisible()) {
                 if (currFragment instanceof SaladBarFragment) {
-                    Salad temp = mSaladBarFragment.getAssembledSalad();
-                    mPlaceOrderFragment.updateOrder(temp);
-                    showNextFragment();
+                    Salad salad = mSaladBarFragment.getAssembledSalad();
+                    mPlaceOrderFragment.updateOrder(salad);
+                    showPlaceOrderFragment();
                 } else if (currFragment instanceof  PlaceOrderFragment) {
                     mSaladBarFragment.assembleNewSalad();
-                    showPreviousFragment();
+                    // TODO: also reset views state
+                    showSaladBarFragment();
                 }
             }
             return true;
 
         } else if (id == android.R.id.home) {
-            showPreviousFragment();
+            showSaladBarFragment();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
 
-    private void showNextFragment() {
+    private void showPlaceOrderFragment() {
         getSupportFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(R.anim.slide_right_enter, R.anim.slide_left_exit,
                         R.anim.slide_left_enter, R.anim.slide_right_exit)
                 .replace(R.id.fragment_container, mPlaceOrderFragment)
-                .addToBackStack(null)
+//                .addToBackStack(null)
                 .commit();
         mToggleMenuButton.setIcon(android.R.drawable.ic_input_add);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    private void showPreviousFragment() {
+    private void showSaladBarFragment() {
         getSupportFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(R.anim.slide_left_enter, R.anim.slide_right_exit,
                         R.anim.slide_right_enter, R.anim.slide_left_exit)
                 .replace(R.id.fragment_container, mSaladBarFragment)
-                .addToBackStack(null)
+//                .addToBackStack(null)
                 .commit();
         mToggleMenuButton.setIcon(R.drawable.paperbag_brown);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
 
     public void showProgressDialog(int resId) {
