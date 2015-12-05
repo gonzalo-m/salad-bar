@@ -4,11 +4,15 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.sb.saladbar.model.OrderConfirmation;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -19,6 +23,8 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
 
     private TextView mDateTextView, mTimeTextView, mConfirmationNumTextView, mTotalView;
+    private ListView mSaladList;
+    private ArrayAdapter<String> mAdapter;
     private OrderConfirmation mOrderConfirmation;
 
     @Override
@@ -34,7 +40,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         mTimeTextView = (TextView) findViewById(R.id.textView_order_time);
         mConfirmationNumTextView = (TextView) findViewById(R.id.textView_confirmation_number);
         mTotalView = (TextView) findViewById(R.id.textView_order_total_amount);
-
+        mSaladList = (ListView) findViewById(R.id.listView);
 
         updateHeaderView();
         updateFooterView();
@@ -51,11 +57,13 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     }
 
     private void updateFooterView() {
-
+        String total = mOrderConfirmation.getTotal();
+        mTotalView.setText(total);
     }
 
     private void updateItemViews() {
-        String total = mOrderConfirmation.getTotal();
-        mTotalView.setText(total);
+        ArrayList<String> saladItems = mOrderConfirmation.getSaladItems();
+        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, saladItems);
+        mSaladList.setAdapter(mAdapter);
     }
 }

@@ -2,9 +2,11 @@ package com.sb.saladbar.model;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * Created by G on 11/23/15.
@@ -44,8 +46,13 @@ public class OrderConfirmation implements Serializable {
         return date;
     }
 
-    public Order getOrderPlaced() {
-        return orderPlaced;
+    public ArrayList<String> getSaladItems() {
+        ArrayList<String> saladItems = new ArrayList<>();
+
+        for (Map.Entry entry: orderPlaced.getSaladItems().entrySet()) {
+            saladItems.add(((Salad)entry.getValue()).toNiceString());
+        }
+        return saladItems;
     }
 
     public String getTotal() {
