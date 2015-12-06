@@ -106,7 +106,7 @@ public class SaladBarFragment extends Fragment {
         return rootView;
     }
 
-    public void updateOrder(Ingredient ingredient) {
+    public void updateOrder(Ingredient ingredient, Boolean fromRandom) {
 
         boolean reachedMax = false;
         if (ingredient instanceof Base) {
@@ -124,19 +124,21 @@ public class SaladBarFragment extends Fragment {
         }
         if (!reachedMax) {
             mSalad.add(ingredient);
-            setLocked(ingredient);
+            setLocked(ingredient, fromRandom);
             updateViews();
             updateLayers();
         }
     }
 
-    private void setLocked(Ingredient ingredient) {
+    private void setLocked(Ingredient ingredient, Boolean fromRandom) {
         ImageView imageView = (ImageView) mTabHost.getChildAt(0).findViewById(ingredient.getResId());
         ColorMatrix matrix = new ColorMatrix();
-        matrix.setSaturation(0);
         ColorMatrixColorFilter cf = new ColorMatrixColorFilter(matrix);
-        imageView.setColorFilter(cf);
-        imageView.setAlpha(0.5f);
+        if(!fromRandom) {
+            matrix.setSaturation(0);
+            imageView.setColorFilter(cf);
+            imageView.setAlpha(0.5f);
+        }
         mImageState.add(ingredient, true);
     }
 
@@ -165,14 +167,14 @@ public class SaladBarFragment extends Fragment {
     public void fillRandomSalad() {
         //adds base if no dressing(assume limit one dressing)
         if (mSalad.getNumBaseIngredients() != mSalad.MAX_BASE_INGREDIENTS) {
-            updateOrder(Base.values()[new Random().nextInt(Base.values().length)]);
+            updateOrder(Base.values()[new Random().nextInt(Base.values().length)], true);
         }
 
         //adds toppings to max if not maxed
         while (mSalad.getNumToppingIngredients() != mSalad.MAX_TOPPING_INGREDIENTS) {
             Ingredient ingredient = Topping.values()[new Random().nextInt(Topping.values().length)];
             if (!(mSalad.contains(ingredient))) {
-                updateOrder(ingredient);
+                updateOrder(ingredient, true);
             }
         }
 
@@ -180,13 +182,13 @@ public class SaladBarFragment extends Fragment {
         while (mSalad.getNumPremiumIngredients() != mSalad.MAX_PREMIUM_INGREDIENTS) {
             Ingredient ingredient = Premium.values()[new Random().nextInt(Premium.values().length)];
             if (!(mSalad.contains(ingredient))) {
-                updateOrder(ingredient);
+                updateOrder(ingredient, true);
             }
         }
 
         //adds dressing if no dressing(assume limit one dressing)
         if (mSalad.getNumDressingIngredients() != mSalad.MAX_DRESSING_INGREDIENTS) {
-            updateOrder(Dressing.values()[new Random().nextInt(Dressing.values().length)]);
+            updateOrder(Dressing.values()[new Random().nextInt(Dressing.values().length)], true);
         }
     }
 
@@ -207,7 +209,7 @@ public class SaladBarFragment extends Fragment {
                     ClipData.Item item = event.getClipData().getItemAt(0);
                     Ingredient ingredient = (Ingredient) item.getIntent().getExtras().get(DRAG_DATA_KEY);
                     Log.i(TAG, "ingredient dropped: " + ingredient.getName());
-                    updateOrder(ingredient);
+                    updateOrder(ingredient, false);
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:
                 default:
