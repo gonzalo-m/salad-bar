@@ -73,6 +73,7 @@ public class SaladBarHostActivity extends AppCompatActivity implements OnOrderPr
             @Override
             public void onShake(int count) {
                 mSaladBarFragment.fillRandomSalad();
+                vibrate(500);
             }
 
         });
@@ -167,7 +168,6 @@ public class SaladBarHostActivity extends AppCompatActivity implements OnOrderPr
         }
         showBagButton();
         mSaladBarFragment.assembleNewSalad();
-        mOrder = new Order();
         // TODO: also reset views state
     }
 
@@ -189,6 +189,11 @@ public class SaladBarHostActivity extends AppCompatActivity implements OnOrderPr
         mProgressDialog.dismiss();
     }
 
+    public void vibrate(int time) {
+        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(time);
+    }
+
     public void openConfirmationActivity(OrderConfirmation orderConfirmation) {
         Intent intent = new Intent(this, OrderConfirmationActivity.class);
         intent.putExtra(Intent.EXTRA_INTENT, orderConfirmation);
@@ -204,8 +209,7 @@ public class SaladBarHostActivity extends AppCompatActivity implements OnOrderPr
 
     @Override
     public void onOrderReady(OrderConfirmation orderConfirmation) {
-        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(500);
+        vibrate(500);
 
         //Send notification to notification area
         NotificationManager notificationManager =
@@ -240,6 +244,7 @@ public class SaladBarHostActivity extends AppCompatActivity implements OnOrderPr
         if (mOrder.isConfirmed()) {
             // reset to show SaladBarFragment
             showSaladBarFragment(false);
+            mOrder = new Order();
         }
         super.onPause();
     }
