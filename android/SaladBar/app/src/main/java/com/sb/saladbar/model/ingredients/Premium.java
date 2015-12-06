@@ -10,12 +10,12 @@ public enum Premium implements Ingredient {
     AVOCADO("Avocado", 2.25, 140, R.drawable.premium_avocado, R.drawable.avacado_layer),
     BACON("Bacon", 2.00, 170, R.drawable.premium_bacon, R.drawable.bacon_layer),
     GOAT_CHEESE("Goat Cheese", 1.75, 80, R.drawable.premium_goat_cheese, R.drawable.premium_goat_cheese),
-    HARD_BOILED_EGG("Egg", 2.00, 80, R.drawable.premium_hard_boiled_egg, R.drawable.premium_hard_boiled_egg),
-    HOUSEMADE_HUMMUS("Hummus", 2.25, 90, R.drawable.premium_housemade_hummus, R.drawable.premium_housemade_hummus),
-    ORGANIC_WHITE_CHEDDAR("White Cheddar", 1.75, 130, R.drawable.premium_organic_white_cheddar, R.drawable.premium_organic_white_cheddar),
+    HARD_BOILED_EGG("Egg", 2.00, 80, R.drawable.premium_hard_boiled_egg, R.drawable.egg_layer),
+    HOUSEMADE_HUMMUS("Hummus", 2.25, 90, R.drawable.premium_housemade_hummus, R.drawable.hummus_layer),
+    ORGANIC_WHITE_CHEDDAR("White Cheddar", 1.75, 130, R.drawable.premium_organic_white_cheddar, R.drawable.cheddar_layer),
     ROASTED_CHICKEN("Chicken", 2.50, 140, R.drawable.premium_roasted_chicken, R.drawable.chicken_layer),
     ROASTED_CURRY_CAULIFLOWER("Cauliflower", 2.25, 30, R.drawable.premium_roasted_curry_cauliflower, R.drawable.premium_roasted_curry_cauliflower),
-    SHAVED_PARMESAN("Parmesan", 1.75, 45, R.drawable.premium_shaved_parmesan, R.drawable.premium_shaved_parmesan);
+    SHAVED_PARMESAN("Parmesan", 1.75, 45, R.drawable.premium_shaved_parmesan, R.drawable.parmesan_layer);
 
 
     private String name;
