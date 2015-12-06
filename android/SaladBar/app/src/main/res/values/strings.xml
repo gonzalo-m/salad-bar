@@ -29,5 +29,6 @@
     <string name="title_activity_salad_bar_host">SaladBarHostActivity</string>
     <string name="progress_message">Placing order...</string>
     <string name="title">Salad Bar</string>
+    <string name="toast_empty_salad">Bowl is empty. Please add ingredients.</string>
 
 </resources>

@@ -1,8 +1,10 @@
-package com.sb.saladbar.model;
+package com.sb.saladbar.model.orderprocessor;
 
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.util.Log;
+
+import com.sb.saladbar.model.Order;
+import com.sb.saladbar.model.OrderConfirmation;
 
 /**
  * Created by G on 11/19/15.

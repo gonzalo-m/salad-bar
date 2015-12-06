@@ -14,16 +14,16 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.sb.saladbar.model.OnOrderProcessed;
+import com.sb.saladbar.model.orderprocessor.OnOrderProcessed;
 import com.sb.saladbar.model.Order;
 import com.sb.saladbar.model.OrderConfirmation;
-import com.sb.saladbar.model.OrderProcessor;
+import com.sb.saladbar.model.orderprocessor.OrderProcessor;
 import com.sb.saladbar.model.Salad;
 
 import java.text.NumberFormat;
 import java.util.Map;
 
-public class PlaceOrderFragment extends Fragment implements OnOrderProcessed {
+public class PlaceOrderFragment extends Fragment {
 
     private static final String TAG = PlaceOrderFragment.class.getSimpleName();
 
@@ -54,52 +54,10 @@ public class PlaceOrderFragment extends Fragment implements OnOrderProcessed {
         placeOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                placeOrder();
+                ((SaladBarHostActivity)getActivity()).placeOrder();
             }
         });
 
         return rootView;
-    }
-
-
-    private void placeOrder() {
-        ((SaladBarHostActivity) getActivity()).showProgressDialog(R.string.progress_message);
-        int processDelay = 3000;    // after 3 sec.
-        int cookDelay = 5000;       // after 3 + 5 sec.
-        OrderProcessor.placeOrder(mOrder, this, processDelay, cookDelay);
-    }
-
-    public void openConfirmationActivity(OrderConfirmation orderConfirmation) {
-        Intent intent = new Intent(this.getActivity(), OrderConfirmationActivity.class);
-        intent.putExtra(Intent.EXTRA_INTENT, orderConfirmation);
-        startActivity(intent);
-    }
-
-    @Override
-    public void onOnOrderConfirmation(OrderConfirmation orderConfirmation) {
-        ((SaladBarHostActivity) getActivity()).hideProgressBar();
-        openConfirmationActivity(orderConfirmation);
-    }
-
-    @Override
-    public void onOrderReady(OrderConfirmation orderConfirmation) {
-        Vibrator vibrator = (Vibrator) getActivity().getSystemService(getContext().VIBRATOR_SERVICE);
-        vibrator.vibrate(500);
-
-        //Send notification to notification area
-        NotificationManager notificationManager =
-                (NotificationManager)getActivity().getSystemService(getContext().NOTIFICATION_SERVICE);
-        CharSequence title = "SweetGreen";
-        CharSequence text = "Your Order Is Ready";
-        Notification.Builder orderReadyNotification = new Notification.Builder(getContext())
-                .setContentText(text)
-                .setContentTitle(text)
-                .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.drawable.green2)
-                .setOngoing(true)
-                .setAutoCancel(true);
-        PendingIntent mContentIntent = PendingIntent.getActivity(getContext(), 0, new Intent(), 0);
-        orderReadyNotification.setContentIntent(mContentIntent);
-        notificationManager.notify(0, orderReadyNotification.build());
     }
 }

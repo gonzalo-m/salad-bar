@@ -87,7 +87,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     }
 
     private void updateHeaderView() {
-        mConfirmationNumTextView.setText(mOrderConfirmation.getOrderNum());
+        mConfirmationNumTextView.setText(String.valueOf(mOrderConfirmation.getOrderNum()));
         mTimeTextView.setText(mOrderConfirmation.getConfirmationDate());
         mDateTextView.setText(mOrderConfirmation.getConfirmationTime());
     }

@@ -1,25 +1,32 @@
 package com.sb.saladbar;
 
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.sb.saladbar.model.Order;
+import com.sb.saladbar.model.OrderConfirmation;
 import com.sb.saladbar.model.Salad;
+import com.sb.saladbar.model.orderprocessor.OnOrderProcessed;
+import com.sb.saladbar.model.orderprocessor.OrderProcessor;
 import com.sb.saladbar.utility.ShakeDeviceManager;
 
 
-
-public class SaladBarHostActivity extends AppCompatActivity {
+public class SaladBarHostActivity extends AppCompatActivity implements OnOrderProcessed {
 
     private static final String TAG = SaladBarHostActivity.class.getSimpleName();
 
@@ -54,7 +61,7 @@ public class SaladBarHostActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_container, mSaladBarFragment)
-                .addToBackStack(null)
+//                .addToBackStack(null)
                 .commit();
 
         //shake feature
@@ -101,19 +108,13 @@ public class SaladBarHostActivity extends AppCompatActivity {
                     getSupportFragmentManager().findFragmentById(R.id.fragment_container);
             if (currFragment != null && currFragment.isVisible()) {
                 if (currFragment instanceof SaladBarFragment) {
-                    Salad assembledSalad = mSaladBarFragment.getAssembledSalad();
-                    mOrder.addSalad(assembledSalad);
                     showPlaceOrderFragment();
                 } else if (currFragment instanceof  PlaceOrderFragment) {
-                    mSaladBarFragment.assembleNewSalad();
-                    // TODO: also reset views state
-                    showSaladBarFragment();
+                    showSaladBarFragment(true);
                 }
             }
             return true;
 
-        } else if (id == android.R.id.home) {
-            showSaladBarFragment();
         }
 
         return super.onOptionsItemSelected(item);
@@ -127,28 +128,49 @@ public class SaladBarHostActivity extends AppCompatActivity {
         mToggleMenuButton.setIcon(android.R.drawable.ic_input_add);
     }
 
+    private void showToast(int message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
 
     private void showPlaceOrderFragment() {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.anim.slide_right_enter, R.anim.slide_left_exit,
-                        R.anim.slide_left_enter, R.anim.slide_right_exit)
-                .replace(R.id.fragment_container, mPlaceOrderFragment)
+        Salad assembledSalad = mSaladBarFragment.getAssembledSalad();
+        if (assembledSalad.isEmpty()){
+            showToast(R.string.toast_empty_salad);
+        } else {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.slide_right_enter, R.anim.slide_left_exit,
+                            R.anim.slide_left_enter, R.anim.slide_right_exit)
+                    .replace(R.id.fragment_container, mPlaceOrderFragment)
 //                .addToBackStack(null)
-                .commit();
-
+                    .commit();
+            mOrder.addSalad(assembledSalad);
+            showPlusButton();
+        }
     }
 
-    private void showSaladBarFragment() {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.anim.slide_left_enter, R.anim.slide_right_exit,
-                        R.anim.slide_right_enter, R.anim.slide_left_exit)
-                .replace(R.id.fragment_container, mSaladBarFragment)
+    private void showSaladBarFragment(boolean animation) {
+        if (animation) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.slide_left_enter, R.anim.slide_right_exit,
+                            R.anim.slide_right_enter, R.anim.slide_left_exit)
+                    .replace(R.id.fragment_container, mSaladBarFragment)
 //                .addToBackStack(null)
-                .commit();
-
+                    .commit();
+        } else {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, mSaladBarFragment)
+//                .addToBackStack(null)
+                    .commit();
+        }
+        showBagButton();
+        mSaladBarFragment.assembleNewSalad();
+        mOrder = new Order();
+        // TODO: also reset views state
     }
+
 
     public void showProgressDialog(int resId) {
         mProgressDialog.setMessage(getResources().getString(resId));
@@ -156,8 +178,52 @@ public class SaladBarHostActivity extends AppCompatActivity {
         mProgressDialog.show();
     }
 
+    public void placeOrder() {
+        showProgressDialog(R.string.progress_message);
+        int processDelay = 3000;    // after 3 sec.
+        int cookDelay = 5000;       // after 3 + 5 sec.
+        OrderProcessor.placeOrder(mOrder, this, processDelay, cookDelay);
+    }
+
     public void hideProgressBar() {
         mProgressDialog.dismiss();
+    }
+
+    public void openConfirmationActivity(OrderConfirmation orderConfirmation) {
+        Intent intent = new Intent(this, OrderConfirmationActivity.class);
+        intent.putExtra(Intent.EXTRA_INTENT, orderConfirmation);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onOnOrderConfirmation(OrderConfirmation orderConfirmation) {
+        hideProgressBar();
+        mOrder.setConfirmed(true);
+        openConfirmationActivity(orderConfirmation);
+    }
+
+    @Override
+    public void onOrderReady(OrderConfirmation orderConfirmation) {
+        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(500);
+
+        //Send notification to notification area
+        NotificationManager notificationManager =
+                (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        CharSequence ticker = getTitle() + " - Order is ready";
+        CharSequence title = getTitle();
+        CharSequence text = "Order #: " + orderConfirmation.getOrderNum();
+        Notification.Builder orderReadyNotification = new Notification.Builder(this)
+                .setTicker(ticker)
+                .setContentText(text)
+                .setContentTitle(title)
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.drawable.green2)
+                .setOngoing(true)
+                .setAutoCancel(true);
+        PendingIntent mContentIntent = PendingIntent.getActivity(this, 0, new Intent(), 0);
+        orderReadyNotification.setContentIntent(mContentIntent);
+        notificationManager.notify(orderConfirmation.getOrderNum(), orderReadyNotification.build());
     }
 
     @Override
@@ -171,6 +237,10 @@ public class SaladBarHostActivity extends AppCompatActivity {
     public void onPause() {
         //unregister Sensor manager onPause
         mSensorManager.unregisterListener(mShakeDeviceManager);
+        if (mOrder.isConfirmed()) {
+            // reset to show SaladBarFragment
+            showSaladBarFragment(false);
+        }
         super.onPause();
     }
 }

@@ -4,13 +4,13 @@ import com.sb.saladbar.model.ingredients.Base;
 import com.sb.saladbar.model.ingredients.Dressing;
 import com.sb.saladbar.model.ingredients.Premium;
 import com.sb.saladbar.model.ingredients.Topping;
+import com.sb.saladbar.model.orderprocessor.OnOrderProcessed;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

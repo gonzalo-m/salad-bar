@@ -1,4 +1,6 @@
-package com.sb.saladbar.model;
+package com.sb.saladbar.model.orderprocessor;
+
+import com.sb.saladbar.model.OrderConfirmation;
 
 /**
  * Created by G on 11/23/15.

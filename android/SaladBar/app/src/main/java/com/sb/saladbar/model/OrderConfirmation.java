@@ -17,19 +17,19 @@ public class OrderConfirmation implements Serializable {
 
     private static int orderIds = 1;
 
-    private final String orderNum;
+    private final int orderNum;
     private final String date;
     private final String time;
     private final Order orderPlaced;
 
     public OrderConfirmation(Order orderPlaced) {
-        orderNum = String.valueOf(orderIds++);
+        orderNum = orderIds++;
         date = DATE_FORMAT.format(Calendar.getInstance().getTime());
         time = TIME_FORMAT.format(Calendar.getInstance().getTime());
         this.orderPlaced = orderPlaced;
     }
 
-    public String getOrderNum() {
+    public int getOrderNum() {
         return orderNum;
     }
 

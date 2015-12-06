@@ -10,9 +10,19 @@ import java.util.TreeMap;
 public class Order implements Serializable {
 
     private final TreeMap<String, Salad> saladItems;
+    private boolean confirmed;
 
     public Order() {
         saladItems = new TreeMap<>();
+        confirmed = false;
+    }
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
     }
 
     public int getNumSaladItems(){
