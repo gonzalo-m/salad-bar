@@ -143,7 +143,7 @@ public class SaladBarFragment extends Fragment {
 
     private static void updateViews() {
         mPriceView.setText(NumberFormat.getCurrencyInstance().format(mSalad.getCost()));
-        mCaloriesView.setText(String.valueOf(mSalad.getCalories()) + " cal.");
+        mCaloriesView.setText(String.valueOf(mSalad.getCalories()) + " Cal");
     }
 
     /**

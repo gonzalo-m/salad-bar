@@ -7,6 +7,9 @@ import com.sb.saladbar.model.ingredients.Premium;
 import com.sb.saladbar.model.ingredients.Topping;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.TreeSet;
 
 /**
@@ -179,6 +182,33 @@ public class Salad implements Serializable {
 
     public TreeSet<Ingredient> getDressingIngredients() {
         return dressingIngredients;
+    }
+
+    public String getAllIngredients() {
+        List<String> ingredientList = new ArrayList<>();
+        for (Ingredient ingredient: baseIngredients) {
+            ingredientList.add(ingredient.getName());
+        }
+        for (Ingredient ingredient: toppingIngredients) {
+            ingredientList.add(ingredient.getName());
+        }
+        for (Ingredient ingredient: premiumIngredients) {
+            ingredientList.add(ingredient.getName());
+        }
+        for (Ingredient ingredient: dressingIngredients) {
+            ingredientList.add(ingredient.getName());
+        }
+        Collections.sort(ingredientList);
+        StringBuffer sb = new StringBuffer();
+        if (ingredientList.size() > 0) {
+            sb.append(ingredientList.get(0));
+        }
+        for (int i = 1; i < ingredientList.size(); i++) {
+            sb.append(", ");
+            sb.append(ingredientList.get(i));
+        }
+
+        return sb.toString();
     }
 
     @Override

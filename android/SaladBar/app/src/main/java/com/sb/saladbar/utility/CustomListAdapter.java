@@ -6,20 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sb.saladbar.R;
 import com.sb.saladbar.model.Salad;
 import com.sb.saladbar.model.ingredients.Ingredient;
 
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
+ * @deprecated
  * Created by AVillardo on 12/2/2015.
  */
 public class CustomListAdapter extends BaseAdapter {
@@ -59,10 +57,10 @@ public class CustomListAdapter extends BaseAdapter {
         LinearLayout itemLayout = (LinearLayout) LayoutInflater.from(mContext)
                 .inflate(R.layout.order_list_item_view, parent, false);
 
-        final TextView orderNumTextView = (TextView) itemLayout.findViewById(R.id.textView_order_number);
-        final TextView orderNameTextView = (TextView) itemLayout.findViewById(R.id.textView_order_name);
-        final TextView orderIngredientsTextView = (TextView) itemLayout.findViewById(R.id.textView_order_ingredients);
-        final TextView orderPriceTextView = (TextView) itemLayout.findViewById(R.id.textView_order_price);
+        final TextView orderNumTextView = (TextView) itemLayout.findViewById(R.id.textView_confirmation_number);
+        final TextView orderNameTextView = (TextView) itemLayout.findViewById(R.id.textView_salad_name);
+        final TextView orderIngredientsTextView = (TextView) itemLayout.findViewById(R.id.textView_salad_ingredients);
+        final TextView orderPriceTextView = (TextView) itemLayout.findViewById(R.id.textView_salad_price);
 
         orderNumTextView.setText(position);
         orderPriceTextView.setText(item.getCost()+"");

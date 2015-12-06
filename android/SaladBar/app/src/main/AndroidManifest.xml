@@ -10,36 +10,29 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/romaine_base"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
 
-        <!-- <activity -->
-        <!-- android:name=".MainActivity" -->
-        <!-- android:label="@string/app_name" > -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-        <!-- </intent-filter> -->
-        <!-- </activity> -->
         <activity
             android:name=".RestaurantSelectorActivity"
-            android:label="@string/title_activity_restaurant_selector"
-            android:theme="@style/AppTheme.NoActionBar" >
-            <!-- Move main intent-filter here -->
+            android:label="@string/title"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".SaladBarHostActivity"
-            android:label="@string/title_activity_salad_bar_host" >
-        </activity>
-        <activity android:name=".OrderConfirmationActivity" />
+            android:label="@string/title_activity_salad_bar_host"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".OrderConfirmationActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

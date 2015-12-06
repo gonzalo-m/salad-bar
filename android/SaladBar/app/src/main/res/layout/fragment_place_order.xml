@@ -88,6 +88,7 @@
             android:layout_toLeftOf="@+id/textView_order_total_price"
             android:layout_toStartOf="@+id/textView_order_total_price"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
             android:textColor="@color/black"
             android:textSize="16dp"/>
     </RelativeLayout>

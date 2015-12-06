@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.sb.saladbar.model.Order;
 import com.sb.saladbar.model.Salad;
 import com.sb.saladbar.utility.ShakeDeviceManager;
 
@@ -22,8 +23,8 @@ public class SaladBarHostActivity extends AppCompatActivity {
 
     private static final String TAG = SaladBarHostActivity.class.getSimpleName();
 
-    private SaladBarFragment mSaladBarFragment = new SaladBarFragment();
-    private PlaceOrderFragment mPlaceOrderFragment = new PlaceOrderFragment();
+    private SaladBarFragment mSaladBarFragment;
+    private PlaceOrderFragment mPlaceOrderFragment;
 
     private MenuItem mToggleMenuButton;
     private ProgressDialog mProgressDialog;
@@ -32,10 +33,16 @@ public class SaladBarHostActivity extends AppCompatActivity {
     private Sensor mAccelerometer;
     private ShakeDeviceManager mShakeDeviceManager;
 
+    private Order mOrder;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_salad_bar_host);
+
+        mSaladBarFragment = new SaladBarFragment();
+        mPlaceOrderFragment = new PlaceOrderFragment();
+        mOrder = new Order();
 
         mProgressDialog = new ProgressDialog(this, AlertDialog.THEME_HOLO_DARK);
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -64,6 +71,13 @@ public class SaladBarHostActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Called only by the PlaceOrderFragment to populate the ListView
+     */
+    public Order getOrder() {
+        return mOrder;
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -83,11 +97,12 @@ public class SaladBarHostActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add_order) {
-            Fragment currFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+            Fragment currFragment =
+                    getSupportFragmentManager().findFragmentById(R.id.fragment_container);
             if (currFragment != null && currFragment.isVisible()) {
                 if (currFragment instanceof SaladBarFragment) {
-                    Salad salad = mSaladBarFragment.getAssembledSalad();
-                    mPlaceOrderFragment.updateOrder(salad);
+                    Salad assembledSalad = mSaladBarFragment.getAssembledSalad();
+                    mOrder.addSalad(assembledSalad);
                     showPlaceOrderFragment();
                 } else if (currFragment instanceof  PlaceOrderFragment) {
                     mSaladBarFragment.assembleNewSalad();
@@ -104,6 +119,14 @@ public class SaladBarHostActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void showBagButton() {
+        mToggleMenuButton.setIcon(R.drawable.paperbag_brown);
+    }
+
+    public void showPlusButton() {
+        mToggleMenuButton.setIcon(android.R.drawable.ic_input_add);
+    }
+
 
     private void showPlaceOrderFragment() {
         getSupportFragmentManager()
@@ -113,8 +136,7 @@ public class SaladBarHostActivity extends AppCompatActivity {
                 .replace(R.id.fragment_container, mPlaceOrderFragment)
 //                .addToBackStack(null)
                 .commit();
-        mToggleMenuButton.setIcon(android.R.drawable.ic_input_add);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     private void showSaladBarFragment() {
@@ -125,8 +147,7 @@ public class SaladBarHostActivity extends AppCompatActivity {
                 .replace(R.id.fragment_container, mSaladBarFragment)
 //                .addToBackStack(null)
                 .commit();
-        mToggleMenuButton.setIcon(R.drawable.paperbag_brown);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
     }
 
     public void showProgressDialog(int resId) {
