@@ -4,20 +4,24 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <RelativeLayout
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="5"
+        android:src="@drawable/logo">
 
-    </RelativeLayout>
+    </ImageView>
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_margin="16dp"
-        android:background="#AED581"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="60dp"
+        android:background="#d9fdf0"
         android:tag="Sweetgreen"
         android:onClick="continueActivity">
 
@@ -44,8 +48,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_margin="16dp"
-        android:background="#DCE775"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="30dp"
+        android:background="#FFF59D"
         android:tag="Saladworks"
         android:onClick="continueActivity">
 
@@ -71,8 +78,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_margin="16dp"
-        android:background="#FFEE58"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="60dp"
+        android:background="#4ed9a6"
         android:tag="Salads-R-Us"
         android:onClick="continueActivity">
 
@@ -98,8 +108,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_margin="16dp"
-        android:background="#FFA726"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="30dp"
+        android:background="#FFD54F"
         android:tag="1800-Salads"
         android:onClick="continueActivity">
 
@@ -121,11 +134,6 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
 
-    </RelativeLayout>
 
 </LinearLayout>
