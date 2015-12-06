@@ -38,6 +38,10 @@ public class SaladListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public List<Salad> getSaladItems() {
+        return mSaladItems;
+    }
+
     @Override
     public int getCount() {
         return mSaladItems.size();
