@@ -33,6 +33,11 @@ public class SaladListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void remove(Salad saladItem) {
+        mSaladItems.remove(saladItem);
+        notifyDataSetChanged();
+    }
+
     public void clear() {
         mSaladItems.clear();
         notifyDataSetChanged();
@@ -70,6 +75,7 @@ public class SaladListAdapter extends BaseAdapter {
             holder.saladName = (TextView) convertView.findViewById(R.id.textView_salad_name);
             holder.ingredients = (TextView) convertView.findViewById(R.id.textView_salad_ingredients);
             holder.price = (TextView) convertView.findViewById(R.id.textView_salad_price);
+            holder.deleteGlyph = (TextView) convertView.findViewById(R.id.textView_salad_delete);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -78,6 +84,7 @@ public class SaladListAdapter extends BaseAdapter {
         holder.saladName.setText(saladItem.getName());
         holder.ingredients.setText(saladItem.getAllIngredients());
         holder.price.setText(NumberFormat.getCurrencyInstance().format(saladItem.getCost()));
+        holder.deleteGlyph.setVisibility(View.GONE);
 
         return convertView;
     }
@@ -86,5 +93,6 @@ public class SaladListAdapter extends BaseAdapter {
         public TextView saladName;
         public TextView ingredients;
         public TextView price;
+        public TextView deleteGlyph;
     }
 }

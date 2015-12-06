@@ -5,6 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
+/**
+ * @deprecated
+ */
 public class RestaurantSelectorFragment extends android.support.v4.app.Fragment {
 
     private static final String TAG = RestaurantSelectorFragment.class.getSimpleName();

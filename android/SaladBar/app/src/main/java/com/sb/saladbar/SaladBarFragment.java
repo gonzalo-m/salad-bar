@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sb.saladbar.fragmenttabs.BaseFragmentTab;
 import com.sb.saladbar.fragmenttabs.DressingFragmentTab;
@@ -109,24 +110,34 @@ public class SaladBarFragment extends Fragment {
     public void updateOrder(Ingredient ingredient, Boolean fromRandom) {
 
         boolean reachedMax = false;
+        String toastText = "";
         if (ingredient instanceof Base) {
             reachedMax = mSalad.getNumBaseIngredients() == Salad.MAX_BASE_INGREDIENTS ? true : false;
+            toastText = "You already have a base ingredient.";
 
         } else if (ingredient instanceof Topping) {
             reachedMax = mSalad.getNumToppingIngredients() == Salad.MAX_TOPPING_INGREDIENTS ? true : false;
+            toastText = "You already have the maximum number of toppings.";
 
         } else if (ingredient instanceof Premium) {
             reachedMax = mSalad.getNumPremiumIngredients() == Salad.MAX_PREMIUM_INGREDIENTS ? true : false;
+            toastText = "You already have the maximum number of premium ingredients.";
 
         } else if (ingredient instanceof Dressing) {
             reachedMax = mSalad.getNumDressingIngredients() == Salad.MAX_DRESSING_INGREDIENTS ? true : false;
-
+            toastText = "You already have a dressing selected.";
         }
-        if (!reachedMax) {
+        if ( mSalad.getNumBaseIngredients() == 0  && !(ingredient instanceof Base) ) {
+            Toast.makeText(getActivity(), "Please choose a base first.", Toast.LENGTH_SHORT).show();
+        }
+        else if (!reachedMax) {
             mSalad.add(ingredient);
             setLocked(ingredient, fromRandom);
             updateViews();
             updateLayers();
+        }
+        else {
+            Toast.makeText(getActivity(), toastText, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -154,14 +165,6 @@ public class SaladBarFragment extends Fragment {
      */
     public Salad getAssembledSalad() {
         return mSalad;
-    }
-
-    /**
-     * Called only by its parent Activity to create new salad (SaladBarFragment)
-     * @return
-     */
-    public void assembleNewSalad() {
-        mSalad = new Salad();
     }
 
     public void fillRandomSalad() {
@@ -227,8 +230,12 @@ public class SaladBarFragment extends Fragment {
         ImageView currPrem;
 
         //Generating base...
-        for ( Ingredient i : mSalad.getBaseIngredients() ) {
-            mBaseImage.setImageResource(i.getLayerId());
+        if ( mSalad.getBaseIngredients().size() == 0 ) {
+            mBaseImage.setImageResource(R.drawable.choose_base_starter);
+        } else {
+            for (Ingredient i : mSalad.getBaseIngredients()) {
+                mBaseImage.setImageResource(i.getLayerId());
+            }
         }
         //Going through toppings...
         for ( Ingredient i : mSalad.getToppingIngredients() ) {
@@ -304,9 +311,9 @@ public class SaladBarFragment extends Fragment {
                 image.setColorFilter(null);
                 mSalad.remove(ingredient);
                 updateViews();
-                updateLayers();
                 mImageState.remove(ingredient);
             }
+            updateLayers();
         }
     }
 

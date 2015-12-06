@@ -19,13 +19,24 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="x"
+            android:textSize="24sp"
+            android:textColor="@color/red"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/textView_salad_delete"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:visibility="gone"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/order_name"
             android:textSize="16sp"
             android:textColor="@color/black"
             android:layout_marginLeft="10dp"
             android:id="@+id/textView_salad_name"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_toRightOf="@id/textView_salad_delete" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -45,7 +56,8 @@
             android:textSize="12sp"
             android:layout_marginLeft="10dp"
             android:id="@+id/textView_salad_ingredients"
-            android:layout_below="@+id/textView_salad_name" />
+            android:layout_below="@+id/textView_salad_name"
+            android:layout_toRightOf="@id/textView_salad_delete" />
 
 
 

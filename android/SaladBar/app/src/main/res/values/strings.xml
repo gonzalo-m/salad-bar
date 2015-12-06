@@ -10,6 +10,7 @@
 
     <string name="action_example">Example action</string>
     <string name="action_add_order">Add order</string>
+    <string name="action_delete_order">Delete</string>
 
     <string name="action_settings">Settings</string>
 
@@ -30,5 +31,9 @@
     <string name="progress_message">Placing order...</string>
     <string name="title">Salad Bar</string>
     <string name="toast_empty_salad">Bowl is empty. Please add ingredients.</string>
+    <string name="toast_no_base">You have not chosen a base ingredient yet.</string>
+    <string name="title_activity_restaurant_selector">Choose Restaurant</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>

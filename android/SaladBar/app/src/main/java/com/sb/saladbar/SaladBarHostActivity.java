@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.sb.saladbar.model.Order;
@@ -34,6 +35,7 @@ public class SaladBarHostActivity extends AppCompatActivity implements OnOrderPr
     private PlaceOrderFragment mPlaceOrderFragment;
 
     private MenuItem mToggleMenuButton;
+    private MenuItem mDeleteMenuButton;
     private ProgressDialog mProgressDialog;
 
     private SensorManager mSensorManager;
@@ -73,6 +75,7 @@ public class SaladBarHostActivity extends AppCompatActivity implements OnOrderPr
             @Override
             public void onShake(int count) {
                 mSaladBarFragment.fillRandomSalad();
+                vibrate(500);
             }
 
         });
@@ -92,6 +95,8 @@ public class SaladBarHostActivity extends AppCompatActivity implements OnOrderPr
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_salad_bar_host, menu);
         mToggleMenuButton = menu.findItem(R.id.action_add_order);
+        mDeleteMenuButton = menu.findItem(R.id.action_delete_order);
+        hideDeleteButton();
         return true;
     }
 
@@ -101,11 +106,12 @@ public class SaladBarHostActivity extends AppCompatActivity implements OnOrderPr
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        Fragment currFragment =
+                getSupportFragmentManager().findFragmentById(R.id.fragment_container);
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add_order) {
-            Fragment currFragment =
-                    getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+
             if (currFragment != null && currFragment.isVisible()) {
                 if (currFragment instanceof SaladBarFragment) {
                     showPlaceOrderFragment();
@@ -115,6 +121,10 @@ public class SaladBarHostActivity extends AppCompatActivity implements OnOrderPr
             }
             return true;
 
+        } else if (id == R.id.action_delete_order) {
+            if (currFragment != null && currFragment.isVisible()) {
+                mPlaceOrderFragment.removeMarkedSalads();
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -122,6 +132,15 @@ public class SaladBarHostActivity extends AppCompatActivity implements OnOrderPr
 
     public void showBagButton() {
         mToggleMenuButton.setIcon(R.drawable.paperbag_brown);
+        hideDeleteButton();
+    }
+
+    public void showDeleteButton() {
+        mDeleteMenuButton.setVisible(true);
+    }
+
+    public void hideDeleteButton() {
+        mDeleteMenuButton.setVisible(false);
     }
 
     public void showPlusButton() {
@@ -136,7 +155,9 @@ public class SaladBarHostActivity extends AppCompatActivity implements OnOrderPr
         Salad assembledSalad = mSaladBarFragment.getAssembledSalad();
         if (assembledSalad.isEmpty()){
             showToast(R.string.toast_empty_salad);
-        } else {
+        } else if ( assembledSalad.getBaseIngredients().size() == 0 ) {
+            showToast(R.string.toast_no_base);
+        }else {
             getSupportFragmentManager()
                     .beginTransaction()
                     .setCustomAnimations(R.anim.slide_right_enter, R.anim.slide_left_exit,
@@ -166,8 +187,6 @@ public class SaladBarHostActivity extends AppCompatActivity implements OnOrderPr
                     .commit();
         }
         showBagButton();
-        mSaladBarFragment.assembleNewSalad();
-        mOrder = new Order();
         // TODO: also reset views state
     }
 
@@ -189,6 +208,11 @@ public class SaladBarHostActivity extends AppCompatActivity implements OnOrderPr
         mProgressDialog.dismiss();
     }
 
+    public void vibrate(int time) {
+        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(time);
+    }
+
     public void openConfirmationActivity(OrderConfirmation orderConfirmation) {
         Intent intent = new Intent(this, OrderConfirmationActivity.class);
         intent.putExtra(Intent.EXTRA_INTENT, orderConfirmation);
@@ -204,8 +228,7 @@ public class SaladBarHostActivity extends AppCompatActivity implements OnOrderPr
 
     @Override
     public void onOrderReady(OrderConfirmation orderConfirmation) {
-        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(500);
+        vibrate(500);
 
         //Send notification to notification area
         NotificationManager notificationManager =
@@ -240,6 +263,7 @@ public class SaladBarHostActivity extends AppCompatActivity implements OnOrderPr
         if (mOrder.isConfirmed()) {
             // reset to show SaladBarFragment
             showSaladBarFragment(false);
+            mOrder = new Order();
         }
         super.onPause();
     }

@@ -31,7 +31,7 @@ public class Salad implements Serializable {
     private final TreeSet<Ingredient> dressingIngredients;
 
     public Salad() {
-        this("Custom Salad " + (id++));
+        this("Custom Salad " + (++id));
     }
 
     public Salad(String name) {
