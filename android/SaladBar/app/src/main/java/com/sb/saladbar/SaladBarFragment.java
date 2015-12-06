@@ -172,7 +172,7 @@ public class SaladBarFragment extends Fragment {
      * @return
      */
     public void assembleNewSalad() {
-        mSalad = new Salad();
+        //mSalad = new Salad();
     }
 
     public void fillRandomSalad() {
