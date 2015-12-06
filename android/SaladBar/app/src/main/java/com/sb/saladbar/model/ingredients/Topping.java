@@ -12,7 +12,7 @@ public enum Topping implements Ingredient {
     BASIL("Basil", .25, 0, R.drawable.topping_basil, R.drawable.topping_basil),
     CILANTRO("Cilantro", .25, 0, R.drawable.topping_cilantro, R.drawable.cilantro_layer),
     CUCUMBER("Cucumber", .25, 0, R.drawable.topping_cucumber, R.drawable.cucumber_layer),
-    ORGANIC_CARROT("Carrot", .25, 10, R.drawable.topping_organic_carrot, R.drawable.topping_organic_carrot),
+    ORGANIC_CARROT("Carrot", .25, 10, R.drawable.topping_organic_carrot, R.drawable.topping_organic_carrot_layer),
     ORGANIC_CHICKPEAS("Chickpeas", .25, 50, R.drawable.topping_organic_chickpeas, R.drawable.topping_organic_chickpeas),
     PEARS("Pears", .75, 15, R.drawable.topping_pear, R.drawable.topping_pear),
     PEPPERS("Peppers", .25, 15, R.drawable.topping_peppers, R.drawable.topping_peppers),
