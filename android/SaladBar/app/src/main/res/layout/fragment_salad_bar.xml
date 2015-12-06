@@ -29,49 +29,49 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
-            android:paddingBottom = "120dp"
+            android:paddingBottom = "110dp"
             android:visibility="invisible"
             android:id="@+id/ingred_2"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
-            android:paddingBottom = "120dp"
+            android:paddingBottom = "110dp"
             android:visibility="invisible"
             android:id="@+id/ingred_3"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
-            android:paddingBottom = "120dp"
+            android:paddingBottom = "110dp"
             android:visibility="invisible"
             android:id="@+id/ingred_4"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
-            android:paddingBottom = "120dp"
+            android:paddingBottom = "110dp"
             android:visibility="invisible"
             android:id="@+id/ingred_5"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
-            android:paddingBottom = "120dp"
+            android:paddingBottom = "110dp"
             android:visibility="invisible"
             android:id="@+id/ingred_6"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
-            android:paddingBottom = "120dp"
+            android:paddingBottom = "110dp"
             android:visibility="invisible"
             android:id="@+id/ingred_7"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
-            android:paddingBottom = "120dp"
+            android:paddingBottom = "110dp"
             android:visibility="invisible"
             android:id="@+id/ingred_8"/>
         <TextView
