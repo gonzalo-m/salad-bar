@@ -127,7 +127,10 @@ public class SaladBarFragment extends Fragment {
             reachedMax = mSalad.getNumDressingIngredients() == Salad.MAX_DRESSING_INGREDIENTS ? true : false;
             toastText = "You already have a dressing selected.";
         }
-        if (!reachedMax) {
+        if ( mSalad.getNumBaseIngredients() == 0  && !(ingredient instanceof Base) ) {
+            Toast.makeText(getActivity(), "Please choose a base first.", Toast.LENGTH_SHORT).show();
+        }
+        else if (!reachedMax) {
             mSalad.add(ingredient);
             setLocked(ingredient, fromRandom);
             updateViews();
