@@ -13,7 +13,7 @@ public enum Base implements Ingredient, Serializable {
     ORGANIC_ARUGULA("Arugula", 1.50, 25, R.drawable.base_organic_argula, R.drawable.arugula_base),
     ORGANIC_BABY_SPINACH("Spinach", 1.50, 25, R.drawable.base_organic_baby_spinach, R.drawable.spinach_base),
     ORGANIC_MESCLUN("Mesculn", 1.50, 25, R.drawable.base_organic_mesclun, R.drawable.mesclun_base),
-    ORGANIC_WILD_RICE("Wild rice", 1.50, 130, R.drawable.base_organic_wild_rice, R.drawable.organic_wild_rice_base),
+    ORGANIC_WILD_RICE("Wild rice", 1.50, 130, R.drawable.base_organic_wild_rice, R.drawable.wildrice_bowl),
     SHREDDED_KALE("Kale", 1.60, 40, R.drawable.base_shredded_kale, R.drawable.kale_base),
     WARM_QUINOA_AND_FARRO("Quinoa & Farro", 1.80, 160, R.drawable.base_organic_quinoa_farro, R.drawable.quinoa_base);
 
