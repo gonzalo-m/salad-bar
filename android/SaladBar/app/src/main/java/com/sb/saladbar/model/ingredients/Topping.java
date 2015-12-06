@@ -8,6 +8,7 @@ import com.sb.saladbar.R;
 public enum Topping implements Ingredient {
 
 
+    TOMATO("Tomato", .25, 10, R.drawable.topping_tomato, R.drawable.tomato_layer),
     APPLE("Apple", .75, 15, R.drawable.topping_apples, R.drawable.apple_chips_layer),
     BASIL("Basil", .25, 0, R.drawable.topping_basil, R.drawable.topping_basil_layer),
     CUCUMBER("Cucumber", .25, 0, R.drawable.topping_cucumber, R.drawable.cucumber_layer),
@@ -26,13 +27,12 @@ public enum Topping implements Ingredient {
     ROASTED_BRUSSEL_SPROUTS("Brussel Sprouts", .25, 50, R.drawable.topping_roasted_brussel_sprouts, R.drawable.topping_roasted_brussel_sprouts_layer),
     ROASTED_SWEET_POTATO("Sweet Potato", .75, 70, R.drawable.topping_roasted_sweet_potato, R.drawable.topping_roasted_sweet_potato_layer),
     SHREDDED_CABBAGE("Cabbage", .25, 5, R.drawable.topping_shredded_cabbage, R.drawable.topping_shredded_cabbage_layer),
-    SPICY_BROCCOLI("Broccoli", .25, 50, R.drawable.topping_spicy_broccoli, R.drawable.topping_spicy_broccoli),
-    SPICY_QUINOA("Quinoa", .75, 50, R.drawable.topping_spicy_quinoa, R.drawable.topping_spicy_quinoa),
-    SPROUTS("Sprouts", .25, 5, R.drawable.topping_sprouts, R.drawable.topping_sprouts),
-    SPICY_SUNFLOWER_SEEDS("Sunflower Seeds", .25, 70, R.drawable.topping_sunflower_seeds, R.drawable.topping_sunflower_seeds),
+    SPICY_BROCCOLI("Broccoli", .25, 50, R.drawable.topping_spicy_broccoli, R.drawable.topping_spicy_broccoli_layer),
+    SPICY_QUINOA("Quinoa", .75, 50, R.drawable.topping_spicy_quinoa, R.drawable.spicy_quinoa_layer),
+    SPROUTS("Sprouts", .25, 5, R.drawable.topping_sprouts, R.drawable.topping_sprouts_layer),
+    SPICY_SUNFLOWER_SEEDS("Sunflower Seeds", .25, 70, R.drawable.topping_sunflower_seeds, R.drawable.topping_sunflower_seeds_layer),
     TOASTED_ALMONDS("Almonds", .75, 80, R.drawable.topping_toasted_almonds, R.drawable.almonds_layer),
-    TOMATO("Tomato", .25, 10, R.drawable.topping_tomato, R.drawable.tomato_layer),
-    TORTILLA_CHIPS("Tortilla Chips", .25, 80, R.drawable.topping_tortilla_chips, R.drawable.topping_tortilla_chips);
+    TORTILLA_CHIPS("Tortilla Chips", .25, 80, R.drawable.topping_tortilla_chips, R.drawable.topping_tortilla_chips_layer);
 
     private String name;
     private double cost;
