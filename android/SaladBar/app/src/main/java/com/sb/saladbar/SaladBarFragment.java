@@ -235,8 +235,12 @@ public class SaladBarFragment extends Fragment {
         ImageView currPrem;
 
         //Generating base...
-        for ( Ingredient i : mSalad.getBaseIngredients() ) {
-            mBaseImage.setImageResource(i.getLayerId());
+        if ( mSalad.getBaseIngredients().size() == 0 ) {
+            mBaseImage.setImageResource(R.drawable.choose_base_starter);
+        } else {
+            for (Ingredient i : mSalad.getBaseIngredients()) {
+                mBaseImage.setImageResource(i.getLayerId());
+            }
         }
         //Going through toppings...
         for ( Ingredient i : mSalad.getToppingIngredients() ) {
@@ -312,9 +316,9 @@ public class SaladBarFragment extends Fragment {
                 image.setColorFilter(null);
                 mSalad.remove(ingredient);
                 updateViews();
-                updateLayers();
                 mImageState.remove(ingredient);
             }
+            updateLayers();
         }
     }
 
