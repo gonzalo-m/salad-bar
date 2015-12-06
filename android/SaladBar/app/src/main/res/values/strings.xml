@@ -32,5 +32,8 @@
     <string name="title">Salad Bar</string>
     <string name="toast_empty_salad">Bowl is empty. Please add ingredients.</string>
     <string name="toast_no_base">You have not chosen a base ingredient yet.</string>
+    <string name="title_activity_restaurant_selector">Choose Restaurant</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>
