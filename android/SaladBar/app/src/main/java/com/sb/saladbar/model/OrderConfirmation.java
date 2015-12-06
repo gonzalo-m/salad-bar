@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 /**
  * Created by G on 11/23/15.
@@ -20,16 +20,12 @@ public class OrderConfirmation implements Serializable {
     private final String orderNum;
     private final String date;
     private final String time;
-    private final String total;
     private final Order orderPlaced;
 
     public OrderConfirmation(Order orderPlaced) {
         orderNum = String.valueOf(orderIds++);
-        Calendar cal = Calendar.getInstance();
-        date = DATE_FORMAT.format(cal.getTime());
-        time = TIME_FORMAT.format(cal.getTime());
-        total = String.valueOf(orderPlaced.getTotal());
-
+        date = DATE_FORMAT.format(Calendar.getInstance().getTime());
+        time = TIME_FORMAT.format(Calendar.getInstance().getTime());
         this.orderPlaced = orderPlaced;
     }
 
@@ -45,17 +41,12 @@ public class OrderConfirmation implements Serializable {
         return date;
     }
 
-    public ArrayList<String> getSaladItems() {
-        ArrayList<String> saladItems = new ArrayList<>();
-
-        for (Map.Entry entry: orderPlaced.getSaladItems().entrySet()) {
-            saladItems.add(((Salad)entry.getValue()).toNiceString());
-        }
-        return saladItems;
+    public List<Salad> getSaladItems() {
+        return new ArrayList<>(orderPlaced.getSaladItems().values());
     }
 
-    public String getTotal() {
-        return total;
+    public double getTotal() {
+        return orderPlaced.getTotal();
     }
 
 }
