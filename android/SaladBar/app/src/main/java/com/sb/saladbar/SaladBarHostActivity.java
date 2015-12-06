@@ -187,7 +187,6 @@ public class SaladBarHostActivity extends AppCompatActivity implements OnOrderPr
                     .commit();
         }
         showBagButton();
-        mSaladBarFragment.assembleNewSalad();
         // TODO: also reset views state
     }
 

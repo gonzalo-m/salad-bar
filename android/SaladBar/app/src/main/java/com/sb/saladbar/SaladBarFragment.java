@@ -167,14 +167,6 @@ public class SaladBarFragment extends Fragment {
         return mSalad;
     }
 
-    /**
-     * Called only by its parent Activity to create new salad (SaladBarFragment)
-     * @return
-     */
-    public void assembleNewSalad() {
-        //mSalad = new Salad();
-    }
-
     public void fillRandomSalad() {
         //adds base if no dressing(assume limit one dressing)
         if (mSalad.getNumBaseIngredients() != mSalad.MAX_BASE_INGREDIENTS) {

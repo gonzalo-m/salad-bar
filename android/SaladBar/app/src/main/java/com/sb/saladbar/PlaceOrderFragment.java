@@ -76,7 +76,7 @@ public class PlaceOrderFragment extends Fragment {
             }
         });
         mTotalPriceTextView = (TextView) rootView.findViewById(R.id.textView_order_total_price);
-        
+
         placeOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
