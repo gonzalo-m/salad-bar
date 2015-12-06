@@ -155,7 +155,9 @@ public class SaladBarHostActivity extends AppCompatActivity implements OnOrderPr
         Salad assembledSalad = mSaladBarFragment.getAssembledSalad();
         if (assembledSalad.isEmpty()){
             showToast(R.string.toast_empty_salad);
-        } else {
+        } else if ( assembledSalad.getBaseIngredients().size() == 0 ) {
+            showToast(R.string.toast_no_base);
+        }else {
             getSupportFragmentManager()
                     .beginTransaction()
                     .setCustomAnimations(R.anim.slide_right_enter, R.anim.slide_left_exit,
