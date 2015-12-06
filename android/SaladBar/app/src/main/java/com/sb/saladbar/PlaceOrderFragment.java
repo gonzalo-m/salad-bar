@@ -36,6 +36,7 @@ public class PlaceOrderFragment extends Fragment {
     private Order mOrder;
     private SaladListAdapter mSaladListAdapter;
     private Set<Integer> deleteSet;
+    private TextView mTotalPriceTextView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,9 +75,8 @@ public class PlaceOrderFragment extends Fragment {
                 }
             }
         });
-        TextView totalPriceTextView = (TextView) rootView.findViewById(R.id.textView_order_total_price);
-        totalPriceTextView.setText(NumberFormat.getCurrencyInstance().format(mOrder.getTotal()));
-
+        mTotalPriceTextView = (TextView) rootView.findViewById(R.id.textView_order_total_price);
+        
         placeOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,7 +84,13 @@ public class PlaceOrderFragment extends Fragment {
             }
         });
 
+        updatePrice();
+
         return rootView;
+    }
+
+    public void updatePrice() {
+        mTotalPriceTextView.setText(NumberFormat.getCurrencyInstance().format(mOrder.getTotal()));
     }
 
     public void removeMarkedSalads() {
@@ -97,6 +103,7 @@ public class PlaceOrderFragment extends Fragment {
             mSaladListAdapter.remove(s);
             mOrder.removeSalad(s.getName());
         }
+        updatePrice();
         ((SaladBarHostActivity)getActivity()).hideDeleteButton();
     }
 }
