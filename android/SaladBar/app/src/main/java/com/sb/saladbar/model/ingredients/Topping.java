@@ -9,14 +9,14 @@ public enum Topping implements Ingredient {
 
 
     APPLE("Apple", .75, 15, R.drawable.topping_apples, R.drawable.apple_chips_layer),
-    BASIL("Basil", .25, 0, R.drawable.topping_basil, R.drawable.topping_basil),
-    CILANTRO("Cilantro", .25, 0, R.drawable.topping_cilantro, R.drawable.cilantro_layer),
+    BASIL("Basil", .25, 0, R.drawable.topping_basil, R.drawable.topping_basil_layer),
     CUCUMBER("Cucumber", .25, 0, R.drawable.topping_cucumber, R.drawable.cucumber_layer),
     ORGANIC_CARROT("Carrot", .25, 10, R.drawable.topping_organic_carrot, R.drawable.topping_organic_carrot_layer),
-    ORGANIC_CHICKPEAS("Chickpeas", .25, 50, R.drawable.topping_organic_chickpeas, R.drawable.topping_organic_chickpeas),
+    ORGANIC_CHICKPEAS("Chickpeas", .25, 50, R.drawable.topping_organic_chickpeas, R.drawable.topping_organic_chickpeas_layer),
     PEARS("Pears", .75, 15, R.drawable.topping_pear, R.drawable.topping_pear),
     PEPPERS("Peppers", .25, 15, R.drawable.topping_peppers, R.drawable.topping_peppers),
     PITA_CHIPS("Pita Chips", .50, 90, R.drawable.topping_pita_chip, R.drawable.topping_pita_chip),
+    CILANTRO("Cilantro", .25, 0, R.drawable.topping_cilantro, R.drawable.cilantro_layer),
     RAISINS("Raisins", .25, 40, R.drawable.topping_raisins, R.drawable.topping_raisins),
     RAW_BEET("Beet", .25, 15, R.drawable.topping_raw_beet, R.drawable.topping_raw_beet),
     RAW_CORN("Corn", .25, 30, R.drawable.topping_raw_corn, R.drawable.topping_raw_corn),
