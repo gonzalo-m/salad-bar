@@ -198,10 +198,14 @@ public class SaladBarHostActivity extends AppCompatActivity implements OnOrderPr
     }
 
     public void placeOrder() {
-        showProgressDialog(R.string.progress_message);
-        int processDelay = 3000;    // after 3 sec.
-        int cookDelay = 5000;       // after 3 + 5 sec.
-        OrderProcessor.placeOrder(mOrder, this, processDelay, cookDelay);
+        if (mOrder.isEmpty()) {
+            showToast(R.string.toast_empty_order);
+        } else {
+            showProgressDialog(R.string.progress_message);
+            int processDelay = 3000;    // after 3 sec.
+            int cookDelay = 5000;       // after 3 + 5 sec.
+            OrderProcessor.placeOrder(mOrder, this, processDelay, cookDelay);
+        }
     }
 
     public void hideProgressBar() {
