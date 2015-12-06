@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.sb.saladbar.model.Order;
@@ -34,6 +35,7 @@ public class SaladBarHostActivity extends AppCompatActivity implements OnOrderPr
     private PlaceOrderFragment mPlaceOrderFragment;
 
     private MenuItem mToggleMenuButton;
+    private MenuItem mDeleteMenuButton;
     private ProgressDialog mProgressDialog;
 
     private SensorManager mSensorManager;
@@ -93,6 +95,8 @@ public class SaladBarHostActivity extends AppCompatActivity implements OnOrderPr
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_salad_bar_host, menu);
         mToggleMenuButton = menu.findItem(R.id.action_add_order);
+        mDeleteMenuButton = menu.findItem(R.id.action_delete_order);
+        hideDeleteButton();
         return true;
     }
 
@@ -102,11 +106,12 @@ public class SaladBarHostActivity extends AppCompatActivity implements OnOrderPr
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        Fragment currFragment =
+                getSupportFragmentManager().findFragmentById(R.id.fragment_container);
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add_order) {
-            Fragment currFragment =
-                    getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+
             if (currFragment != null && currFragment.isVisible()) {
                 if (currFragment instanceof SaladBarFragment) {
                     showPlaceOrderFragment();
@@ -116,6 +121,10 @@ public class SaladBarHostActivity extends AppCompatActivity implements OnOrderPr
             }
             return true;
 
+        } else if (id == R.id.action_delete_order) {
+            if (currFragment != null && currFragment.isVisible()) {
+                mPlaceOrderFragment.removeMarkedSalads();
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -123,6 +132,15 @@ public class SaladBarHostActivity extends AppCompatActivity implements OnOrderPr
 
     public void showBagButton() {
         mToggleMenuButton.setIcon(R.drawable.paperbag_brown);
+        hideDeleteButton();
+    }
+
+    public void showDeleteButton() {
+        mDeleteMenuButton.setVisible(true);
+    }
+
+    public void hideDeleteButton() {
+        mDeleteMenuButton.setVisible(false);
     }
 
     public void showPlusButton() {

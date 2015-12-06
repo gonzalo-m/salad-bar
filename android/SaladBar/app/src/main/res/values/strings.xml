@@ -10,6 +10,7 @@
 
     <string name="action_example">Example action</string>
     <string name="action_add_order">Add order</string>
+    <string name="action_delete_order">Delete</string>
 
     <string name="action_settings">Settings</string>
 
